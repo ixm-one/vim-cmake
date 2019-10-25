@@ -5,12 +5,12 @@ is broken.
 
 ## Roadmap
 
-[ ] Generated syntax file from JSON
-[x] Better highlighting settings
-[ ] Configure and Build support
-[ ] Automatic tag file generation
-[ ] Support for using vscode cmake tool configuration files
-[x] Support for reading IXM dict files
+ * [ ] Generated syntax file from JSON
+ * [x] Better highlighting settings
+ * [ ] Configure and Build support
+ * [ ] Automatic tag file generation
+ * [ ] Support for using vscode cmake tool configuration files
+ * [x] Support for reading IXM dict files
 
 ## Installation
 
