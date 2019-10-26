@@ -1,4 +1,6 @@
 if exists('cmake_plugin_loaded') | finish | endif
+let g:cmake_plugin_loaded = 1
+
 " TODO: load vscode/settings.json if set
 " TODO: load cmake-variants.json if it exists
 " keys
@@ -19,13 +21,6 @@ if exists('cmake_plugin_loaded') | finish | endif
 " copyCompileCommands
 " loggingLevel
 
-"function! s:CMake#configure() dict
-"  let l:argument = []
-"  let l:configured = filereadable('CMakeCache.txt')
-"  if !l:configured
-"  endif
-"endfunction
-
 function! s:cmake_find_build()
 endfunction
 
@@ -34,4 +29,19 @@ endfunction
 function! s:cmake(...)
   if !s:find_build_dir() | return | endif
   let &makeprg = 'cmake --build ' . shellescape(b:build_dir) . ' --target'
+endfunction
+
+function! CMakeRegenerateSyntax()
+  call cmake#syntax#Subcommands()
+  call cmake#syntax#Properties()
+  call cmake#syntax#Variables()
+  call cmake#syntax#Modules()
+
+  call cmake#syntax#References()
+
+  "if !filereadable(g:cmake#syntax#cache)
+    call extend(g:cmake#syntax#text, g:cmake#syntax#syntax_text)
+    call extend(g:cmake#syntax#text, g:cmake#syntax#highlight_text)
+    call writefile(g:cmake#syntax#text, g:cmake#syntax#cache)
+  "endif
 endfunction

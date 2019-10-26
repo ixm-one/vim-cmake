@@ -1,0 +1,17 @@
+{
+    "@type": "cmake",
+    "keyword": [
+        "CMakeAddFortranSubdirectory",
+        "CMakeBackwardCompatibilityCXX",
+        "CMakeDependentOption",
+        "CMakeFindDependencyMacro",
+        "CMakeFindFrameworks",
+        "CMakeFindPackageMode",
+        "CMakeGraphVizOptions",
+        "CMakePackageConfigHelpers",
+        "CMakePrintHelpers",
+        "CMakePrintSystemInformation",
+        "CMakePushCheckState",
+        "CMakeVerifyManifest"
+    ]
+}

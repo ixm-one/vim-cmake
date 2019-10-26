@@ -1,0 +1,38 @@
+{
+    "@type": "property",
+    "keyword": [
+        "ADDITIONAL_CLEAN_FILES",
+        "BINARY_DIR",
+        "BUILDSYSTEM_TARGETS",
+        "CACHE_VARIABLES",
+        "CLEAN_NO_CUSTOM",
+        "CMAKE_CONFIGURE_DEPENDS",
+        "COMPILE_DEFINITIONS",
+        "COMPILE_OPTIONS",
+        "DEFINITIONS",
+        "EXCLUDE_FROM_ALL",
+        "IMPLICIT_DEPENDS_INCLUDE_TRANSFORM",
+        "INCLUDE_DIRECTORIES",
+        "INCLUDE_REGULAR_EXPRESSION",
+        "INTERPROCEDURAL_OPTIMIZATION",
+        "LABELS",
+        "LINK_DIRECTORIES",
+        "LINK_OPTIONS",
+        "LISTFILE_STACK",
+        "MACROS",
+        "PARENT_DIRECTORY",
+        "RULE_LAUNCH_COMPILE",
+        "RULE_LAUNCH_CUSTOM",
+        "RULE_LAUNCH_LINK",
+        "SOURCE_DIR",
+        "SUBDIRECTORIES",
+        "TESTS",
+        "TEST_INCLUDE_FILES",
+        "VARIABLES",
+        "VS_STARTUP_PROJECT"
+    ],
+    "suffix": [
+        "VS_GLOBAL_SECTION_POST",
+        "VS_GLOBAL_SECTION_PRE"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "@type": "include",
+    "keyword": [
+        "CPackComponent",
+        "CPackIFW",
+        "CPackIFWConfigureFile",
+        "CPack"
+    ]
+}

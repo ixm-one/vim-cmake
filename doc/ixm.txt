@@ -1,0 +1,6 @@
+*ixm.txt*      Information on the IXM File Format, and the IXM API
+
+===============================================================================
+CONTENTS                                                           *ixm-contents*
+
+

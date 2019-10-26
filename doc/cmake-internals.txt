@@ -1,0 +1,65 @@
+*cmake-internals.txt*   Information on CMake Plugin Internals
+
+INTERNALS                                                       *cmake-internals*
+
+This document discusses internal behavior of the CMake plugin. Its intended use
+is to allow developers to understand the inner workings of the plugin, while
+also acting as a reference. In addition to behavior, this document also
+provides information on the `autoload/` API calls.
+
+===============================================================================
+CONTENTS                                               *cmake-internals-contents*
+
+        1. Syntax File Generation.............|cmake-internals-syntax|
+        2. VSCode Interoperability............|cmake-internals-vscode|
+        3. Autoload APIs......................|cmake-internals-apis|
+        4. Plugin Cache.......................|cmake-internals-cache|
+
+===============================================================================
+SYNTAX FILE GENERATION                                   *cmake-internals-syntax*
+
+This plugin goes to great lengths to automate generating useful syntax files
+for CMake. While this could theoretically result in very expensive syntax
+files, in practice, users are not typically working on multiple large CMake
+libraries.
+
+This plugin does assume that you are using a package or plugin manager to some
+degree. In other words, the plugin is installed in a location where it can
+write files to its own internal directory. The plugin does not use the
+'backupdir' option, as this might be shared with other programs, and would
+thus be unsafe to use.
+
+A |cmake-internals-cache| directory is created at the plugin's root directory.
+This directory is completely destroyed when `:CMakeRegenerateSyntax` is called.
+If the directory does not exist, `:CMakeRegenerateSyntax` is callled
+automatically. Additionally, if the contents of 'runtimepath', 'packpath', and
+|g:cmake_api_path| differ from previous runs, `:CMakeRegenerateSyntax` is
+called automatically. This last feature can be disabled by setting
+|g:cmake_api_manual_generation|.
+
+Note This is the current approach of the plugin, however in the future, the
+`$XDG_CACHE_HOME`, `$APPLOCALDATA`, and `$HOME/Library/Caches` directories will
+most likely be used on POSIX, Windows, and macOS respectively.
+
+The actual behavior is to look inside a directory named "cmake" within each
+path during the syntax file generation step. Every `.json` file is then opened
+and checked to see if it implements the correct schema. If the "schema" is not
+found, then the JSON file is discarded, and a warning is emitted to |:messages|
+with the |WarningMsg| syntax highlighting set. This behavior can be disabled by
+setting |g:cmake_api_silent_warnings|.
+
+===============================================================================
+VSCODE INTEROPERABILITY                                  *cmake-internals-vscode*
+
+===============================================================================
+AUTOLOAD APIS                                              *cmake-internals-apis*
+
+ * `cmake#project#`: used to configure and build projects
+ * `cmake#json#`: Used to parse and understand both the CMake JSON API files
+   understood by the plugin, and CMake's file-api.
+ * `cmake#api#` Used to generate syntax commands for CMake APIs
+ * `cmake#tag#` Used to generate tag files for CMake projects
+
+===============================================================================
+PLUGIN CACHE                                              *cmake-internals-cache*
+

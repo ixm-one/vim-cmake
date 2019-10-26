@@ -38,6 +38,9 @@ syntax match cmakeTarget /\v<\k+::\k+(::\k+)*>/ display
 syntax match cmakeNumber /\v<\d+/ display
 syntax match cmakeFloat /\v<\d+%(\.\d+){1,3}/ display
 
+syntax match cmakeEscape /\v\\n/ containedin=cmakeString
+syntax match cmakeEscape /\v\\t/ containedin=cmakeString
+
 syntax region cmakeString start=/\v\[\z(\={,9})\[/ end=/\v\]\z1\]/ contains=@cmakeDerefExpression
 syntax region cmakeString start=/"/ end=/\v%(\\)@<!"/ contains=@cmakeDerefExpression
 
@@ -51,19 +54,123 @@ syntax region cmakeDefined start='ENV{' end='}' contained contains=@cmakeArgumen
 
 syntax keyword cmakeTodo contained FIXME NOTE TODO HACK BUG XXX
 
-if !filereadable(g:cmake#syntax#cache)
-  call cmake#syntax#Subcommands()
-  call cmake#syntax#Properties()
-  call cmake#syntax#Variables()
-  call cmake#syntax#Operators()
-  call cmake#syntax#Modules()
-  
-  call cmake#syntax#Reference('CACHE')
-  call cmake#syntax#Reference('ENV')
-  call cmake#syntax#Reference('')
+syntax keyword cmakeConditionalOperator contained IS_NEWER_THAN
+syntax keyword cmakeConditionalOperator contained IS_DIRECTORY
+syntax keyword cmakeConditionalOperator contained IS_ABSOLUTE
+syntax keyword cmakeConditionalOperator contained IS_SYMLINK
+syntax keyword cmakeConditionalOperator contained EXISTS
 
-  call writefile(g:cmake#syntax#text, g:cmake#syntax#cache)
-endif
+syntax keyword cmakeConditionalOperator contained VERSION_GREATER_EQUAL
+syntax keyword cmakeConditionalOperator contained VERSION_LESS_EQUAL
+syntax keyword cmakeConditionalOperator contained VERSION_GREATER
+syntax keyword cmakeConditionalOperator contained VERSION_EQUAL
+syntax keyword cmakeConditionalOperator contained VERSION_LESS
+
+syntax keyword cmakeConditionalOperator contained STRGREATER_EQUAL
+syntax keyword cmakeConditionalOperator contained STRLESS_EQUAL
+syntax keyword cmakeConditionalOperator contained STRGREATER
+syntax keyword cmakeConditionalOperator contained STREQUAL
+syntax keyword cmakeConditionalOperator contained STRLESS
+
+syntax keyword cmakeConditionalOperator contained GREATER_EQUAL
+syntax keyword cmakeConditionalOperator contained LESS_EQUAL
+syntax keyword cmakeConditionalOperator contained GREATER
+syntax keyword cmakeConditionalOperator contained EQUAL
+syntax keyword cmakeConditionalOperator contained LESS
+
+syntax keyword cmakeConditionalOperator contained IN_LIST
+syntax keyword cmakeConditionalOperator contained DEFINED
+syntax keyword cmakeConditionalOperator contained COMMAND
+syntax keyword cmakeConditionalOperator contained MATCHES
+syntax keyword cmakeConditionalOperator contained POLICY
+syntax keyword cmakeConditionalOperator contained TARGET
+syntax keyword cmakeConditionalOperator contained TEST
+
+syntax keyword cmakeConditionalOperator contained NOT AND OR
+
+syntax keyword cmakeRepeatOperator contained RANGE LISTS ITEMS IN
+
+syntax keyword cmakeGeneratorOperator contained Fortran_COMPILER_VERSION
+syntax keyword cmakeGeneratorOperator contained OBJCXX_COMPILER_VERSION
+syntax keyword cmakeGeneratorOperator contained OBJC_COMPILER_VERSION
+syntax keyword cmakeGeneratorOperator contained CUDA_COMPILER_VERSION
+syntax keyword cmakeGeneratorOperator contained CXX_COMPILER_VERSION
+syntax keyword cmakeGeneratorOperator contained C_COMPILER_VERSION
+
+syntax keyword cmakeGeneratorOperator contained Fortran_COMPILER_ID
+syntax keyword cmakeGeneratorOperator contained OBJCXX_COMPILER_ID
+syntax keyword cmakeGeneratorOperator contained OBJC_COMPILER_ID
+syntax keyword cmakeGeneratorOperator contained CUDA_COMPILER_ID
+syntax keyword cmakeGeneratorOperator contained CXX_COMPILER_ID
+syntax keyword cmakeGeneratorOperator contained C_COMPILER_ID
+
+syntax keyword cmakeGeneratorOperator contained COMPILE_LANG_AND_ID
+syntax keyword cmakeGeneratorOperator contained COMPILE_LANGUAGE
+syntax keyword cmakeGeneratorOperator contained COMPILE_FEATURES
+
+syntax keyword cmakeGeneratorOperator contained TARGET_POLICY
+syntax keyword cmakeGeneratorOperator contained TARGET_EXISTS
+syntax keyword cmakeGeneratorOperator contained PLATFORM_ID
+syntax keyword cmakeGeneratorOperator contained CONFIG
+
+syntax keyword cmakeGeneratorOperator contained VERSION_GREATER_EQUAL
+syntax keyword cmakeGeneratorOperator contained VERSION_LESS_EQUAL
+syntax keyword cmakeGeneratorOperator contained VERSION_GREATER
+syntax keyword cmakeGeneratorOperator contained VERSION_EQUAL
+syntax keyword cmakeGeneratorOperator contained VERSION_LESS
+
+syntax keyword cmakeGeneratorOperator contained ANGLE-R COMMA SEMICOLON
+syntax keyword cmakeGeneratorOperator contained STREQUAL IN_LIST EQUAL
+syntax keyword cmakeGeneratorOperator contained BOOL AND OR NOT
+syntax keyword cmakeGeneratorOperator contained IF
+
+syntax keyword cmakeGeneratorOperator contained REMOVE_DUPLICATES
+syntax keyword cmakeGeneratorOperator contained TARGET_GENEX_EVAL
+syntax keyword cmakeGeneratorOperator contained GENEX_EVAL 
+syntax keyword cmakeGeneratorOperator contained LOWER_CASE
+syntax keyword cmakeGeneratorOperator contained UPPER_CASE
+syntax keyword cmakeGeneratorOperator contained FILTER
+syntax keyword cmakeGeneratorOperator contained JOIN
+
+syntax keyword cmakeGeneratorOperator contained TARGET_NAME_IF_EXISTS
+syntax keyword cmakeGeneratorOperator contained TARGET_PROPERTY
+syntax keyword cmakeGeneratorOperator contained INSTALL_PREFIX
+
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE_BASE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE_PREFIX
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE_SUFFIX
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE_DIR
+syntax keyword cmakeGeneratorOperator contained TARGET_FILE
+
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE_BASE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE_PREFIX
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE_SUFFIX
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE_DIR
+syntax keyword cmakeGeneratorOperator contained TARGET_LINKER_FILE
+
+syntax keyword cmakeGeneratorOperator contained TARGET_SONAME_FILE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_SONAME_FILE_DIR
+syntax keyword cmakeGeneratorOperator contained TARGET_SONAME_FILE
+
+syntax keyword cmakeGeneratorOperator contained TARGET_PDB_FILE_NAME
+syntax keyword cmakeGeneratorOperator contained TARGET_PDB_FILE_DIR
+syntax keyword cmakeGeneratorOperator contained TARGET_PDB_FILE
+
+syntax keyword cmakeGeneratorOperator contained TARGET_BUNDLE_CONTENT_DIR
+syntax keyword cmakeGeneratorOperator contained TARGET_BUNDLE_DIR
+
+syntax keyword cmakeGeneratorOperator contained MAKE_C_IDENTIFIER
+syntax keyword cmakeGeneratorOperator contained INSTALL_INTERFACE
+syntax keyword cmakeGeneratorOperator contained BUILD_INTERFACE
+syntax keyword cmakeGeneratorOperator contained TARGET_OBJECTS
+syntax keyword cmakeGeneratorOperator contained TARGET_NAME
+syntax keyword cmakeGeneratorOperator contained SHELL_PATH
+syntax keyword cmakeGeneratorOperator contained LINK_ONLY
+
+
+call CMakeRegenerateSyntax()
 
 execute 'source' g:cmake#syntax#cache
 
@@ -112,107 +219,11 @@ highlight default link cmakeDefined Identifier
 highlight default link cmakeBoolean Boolean
 highlight default link cmakeNumber Number
 highlight default link cmakeString String
+highlight default link cmakeEscape SpecialChar
 highlight default link cmakeFloat Float
 highlight default link cmakeTarget Type
 
 highlight default link cmakeComment Comment
 highlight default link cmakeTodo TODO
-
-" TODO: This should support more granular capabilities. Things like
-" 'these are subcommands and *these* are options for said subcommand'.
-" Probably requires more stuff like nextgroup manipulation and such.
-"function! s:CMakeCommand(name, ...)
-"  let l:range = 'start=/\\@<=' . a:name . '(/ end=/)/'
-"  let l:ident = 'cmake' . cmake#Capitalize(a:name)
-"  let l:subcommands = l:ident . 'Subcommands'
-"  let l:parameters = l:ident . 'Parameters'
-"  let l:command = l:ident . 'Command'
-"  let l:keys = !empty(a:000) ? a:000 : cmake#Data('commands', a:name)->values()->cmake#Flatten()
-"
-"  let l:subcommandArgs = ['syntax', 'keyword', l:subcommands, 'containedin=' . l:parameters]
-"  let l:parameterArgs = ['syntax', 'region', l:parameters, l:range]
-"  let l:commandArgs = ['syntax', 'keyword', l:command, a:name]
-"  let l:highlightSubcommands = ['highlight', 'default', 'link', l:subcommands, 'Special']
-"  let l:highlightCommand = ['highlight', 'default', 'link', l:command, 'Keyword']
-"  for item in l:keys
-"    eval l:subcommandArgs->extend(item->type() == v:t_list ? item : [item])
-"  endfor
-"  let l:contains = [l:subcommands, 'cmakeNumber', 'cmakeProperty', 'cmakeFloat']
-"  eval l:parameterArgs->extend(['contains=' . join(l:contains, ',')])
-"  eval l:commandArgs->extend(['nextgroup=' . l:parameters, l:command])
-"
-"  call cmake#Execute(l:subcommandArgs)
-"  call cmake#Execute(l:parameterArgs)
-"  call cmake#Execute(l:commandArgs)
-"  call cmake#Execute(l:highlightSubcommands)
-"  call cmake#Execute(l:highlightCommand)
-"endfunction
-
-"function! s:CMakeModule(name)
-"  const l:keys = cmake#Data('modules', a:name)
-"  for [key, group] in l:keys->get('highlight', {})->items()
-"    let entries = l:keys->get(key, [])
-"    if empty(entries) | continue | endif
-"    let cmake = s:group(a:name, key)
-"    call s:keyword(cmake, entries)
-"    call s:link(cmake, group)
-"  endfor
-"endfunction
-
-"call s:CMakeModule('FetchContent')
-"call s:CMakeModule('ExternalData')
-
-"{{{ 'Keyword' Commands
-"call s:CMakeCommand('cmake_minimum_required', 'VERSION')
-"call s:CMakeCommand('get_property')
-"call s:CMakeCommand('set_property')
-"call s:CMakeCommand('message')
-"call s:CMakeCommand('option')
-"call s:CMakeCommand('string')
-"call s:CMakeCommand('file')
-"call s:CMakeCommand('list')
-"
-"call s:CMakeCommand('math', 'EXPR')
-"
-"call s:CMakeCommand('unset', 'PARENT_SCOPE')
-"call s:CMakeCommand('set', 'PARENT_SCOPE')
-"
-"if !exists('g:cmake_disable_ixm_highlighting')
-"  call s:CMakeCommand('console')
-"  call s:CMakeCommand('dict')
-"  call s:CMakeCommand('find')
-"  call s:CMakeCommand('log')
-"endif
-
-"syntax keyword cmakeIncludeCommand include nextgroup=cmakeIncludeArgs
-"syntax region cmakeIncludeArgs start=/include\zs(/ end=/)/ contains=cmakeModules,cmakeDeprecatedModules
-"highlight default link cmakeIncludeCommand PreProc
-"highlight default link cmakeModules Include
-"highlight default link cmakeDeprecatedModules SpellRare
-
-"}}}
-
-syntax keyword cmakeIncludeGuardCommand include_guard
-
-"highlight default link cmakeFetchContentCommands Function
-
-"{{{ Modules
-syntax keyword cmakeModules contained
-      \ AddFileDependencies
-      \ ExternalData
-      \ ExternalProject
-      \ FeatureSummary
-      \ FetchContent
-      \ FindPackageHandleStandardArgs
-      \ FindPackageMessage
-      \ FortranCInterface
-      \ GenerateExportHeader
-      \ GetPrerequisites
-      \ GNUInstallDirs
-      \ GoogleTest
-      \ InstallRequiredSystemLibraries
-      \ ProcessorCount
-      \ SelectLibraryConfigurations
-      \ WriteCompilerDetectionHeader
 
 let b:current_syntax = "cmake"

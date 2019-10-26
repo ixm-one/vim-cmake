@@ -1,14 +1,5 @@
-let s:gitdir = finddir('.git', expand('<sfile>:h') . ';')
-
-function! cmake#syntax#Cache()
-  let l:hash = trim(system('git --git-dir=' .. shellescape(s:gitdir) .. ' rev-parse HEAD'))
-  let l:path = join([fnamemodify(s:gitdir, ':h'), '.cache'], '/')
-  call mkdir(l:path, "p", 0700)
-  return join([l:path, l:hash .. '.vim'], '/')
-endfunction
-
-let cmake#syntax#cache = cmake#syntax#Cache()
-let cmake#syntax#text = []
+let s:plugin_root = fnamemodify(findfile('README.md', expand('<sfile>:h') .. ';'), ':h')
+let s:gitdir = join([s:plugin_root, '.git'], '/')
 
 function! s:flatten(items)
   if type(a:items) != v:t_list | return [a:items] | endif
@@ -20,13 +11,33 @@ function! s:flatten(items)
   return l:result
 endfunction
 
+
+" TODO: Replace this with a function in plugin/ that
+" 1) Globs all of our data files
+" 2) Reads them all into a buffer
+" 3) Runs sha256 over them
+" 4) Stores the resulting hash cmake#syntax#cache
+" This removes the need to call git, and know where the git directory is
+function! cmake#syntax#Cache()
+  let l:hash = trim(system('git --git-dir=' .. shellescape(s:gitdir) .. ' rev-parse HEAD'))
+  let l:path = join([fnamemodify(s:gitdir, ':h'), '.cache'], '/')
+  call mkdir(l:path, "p", 0700)
+  return join([l:path, l:hash .. '.vim'], '/')
+endfunction
+
+let cmake#syntax#cache = cmake#syntax#Cache()
+let cmake#syntax#text = []
+
+let cmake#syntax#highlight_text = []
+let cmake#syntax#syntax_text = []
+
 function! s:execute(...)
   let l:command = join(s:flatten(a:000), ' ')
   call add(g:cmake#syntax#text, l:command)
 endfunction
 
 function! s:group(...)
-  return join(s:flatten(['cmake', a:000]), '')
+  return 'cmake' .. join(a:000, '')
 endfunction
 
 function! s:capitalize(name)
@@ -35,19 +46,22 @@ function! s:capitalize(name)
   return join(l:words, '')
 endfunction
 
-function! s:found(group, name)
-  if exists('g:cmake#data#{a:group}#{a:name}') | return 1 | endif
-  let l:var = join(['cmake', 'data', a:group, a:name], '#')
-  return cmake#Warn('Cannot find ' . l:var)
+function! s:highlight(from, to)
+  call add(g:cmake#syntax#highlight_text, join(['highlight', 'default', 'link', a:from, a:to], ' '))
 endfunction
 
-function! cmake#syntax#LinkTo(from, to)
-  call s:execute('highlight', 'default', 'link', 'cmake' . a:from, a:to)
+function! s:syntax_keyword(group, ...)
+  call s:execute('syntax', 'keyword', a:group, a:000)
+endfunction
+
+function! s:match(group, pattern, ...)
+  call s:execute('syntax', 'match', a:group, '/' .. a:pattern .. '/', a:000)
 endfunction
 
 function! cmake#syntax#Keyword(group, ...)
   if empty(a:000) | return | endif
-  call s:execute('syntax', 'keyword', 'cmake' . a:group, a:000)
+  let l:command = join(s:flatten(['syntax', 'keyword', 'cmake' . a:group, a:000]), ' ')
+  call add(g:cmake#syntax#syntax_text, l:command)
 endfunction
 
 function! cmake#syntax#Match(group, pattern, ...)
@@ -76,82 +90,46 @@ function! cmake#syntax#Pattern(group, items)
   endfor
 endfunction
 
-function! cmake#syntax#Reference(prefix)
-  let l:options = ['oneline', 'display', 'contained', 'contains=@cmakeArgument']
-  call cmake#syntax#Region('Reference', "'$" . a:prefix . "{'", "'}'", l:options)
-endfunction
-
-function! cmake#syntax#SubcommandMatch(command, subcommand)
-  let l:group = 'cmake' .. s:capitalize(a:command) .. s:capitalize(a:subcommand)
-  let l:match = 'matchgroup=cmakeSubcommand'
-  let l:start = 'start=/\v%(<list)@<=\s*\(\zs' .. a:subcommand .. '/'
-  let l:end = 'end=/\v\)/'
-  let l:contains = 'contains=@cmakeExpression'
-  call s:execute('syntax', 'region', l:group, l:match, l:start, l:end, l:contains)
-endfunction
-
-function! cmake#syntax#SubcommandKeyword() dict
-  if empty(self.keywords) | return [] | endif
-  return ['syntax', 'keyword', 'cmake' .. self.group() .. 'Keyword', self.keywords, 'contained', 'containedin=' .. self.group()]
-endfunction
-
-function! cmake#syntax#SubcommandFlag() dict
-  if empty(self.flags) | return [] | endif
-  return ['syntax', 'keyword', 'cmake' .. self.group() .. 'Flag', self.flags, 'contained', 'containedin=' .. self.group()]
-endfunction
-
 function! cmake#syntax#Subcommand(command, subcommand, keywords = [], flags = [])
-  let l:subcommand = #{
+  let subcommand = #{
   \   category: a:command,
   \   name: a:subcommand,
   \   keywords: deepcopy(a:keywords),
   \   flags: deepcopy(a:flags)
   \ }
-  function l:subcommand.cluster_group() dict
-    return s:group(s:capitalize(self.category), 'Subcommands')
-  endfunction
-  function l:subcommand.keyword_group() dict
-    return s:group(self.group(), 'Keyword')
-  endfunction
-  function l:subcommand.flag_group() dict
-    return s:group(self.group(), 'Flag')
-  endfunction
-  function l:subcommand.match_group() dict
-    return s:group(self.group())
-  endfunction
-  function l:subcommand.group() dict
+  function subcommand.group() dict
     return s:capitalize(self.category) .. s:capitalize(self.name)
   endfunction
-  function l:subcommand.keyword() dict
+  function subcommand.keyword() dict
     if empty(self.keywords) | return [] | endif
-    return ['syntax', 'keyword', self.keyword_group(), self.keywords, 'contained', 'containedin=' .. self.match_group()]
+
+    return [self.keywords, 'contained', 'containedin=' .. self.match_group]
   endfunction
-  function l:subcommand.flag() dict
-    if empty(self.flags) | return [] | endif
-    return ['syntax', 'keyword', self.flag_group(), self.flags, 'contained', 'containedin=' .. self.match_group()]
+"  function subcommand.flag() dict
+"    if empty(self.flags) | return [] | endif
+"    return ['syntax', 'keyword', self.flag_group, self.flags, 'contained', 'containedin=' .. self.match_group]
+"  endfunction
+  function subcommand.command() dict
+    return ['syntax', 'keyword', 'cmakeCommand', self.category, 'skipwhite', 'nextgroup=@' .. self.cluster_group]
   endfunction
-  function l:subcommand.command() dict
-    return ['syntax', 'keyword', 'cmakeCommand', self.category, 'skipwhite', 'nextgroup=@' .. self.cluster_group()]
-  endfunction
-  function l:subcommand.highlight_keyword() dict
-    return ['highlight', 'default', 'link', self.keyword_group(), 'cmakeKeyword']
-  endfunction
-  function l:subcommand.highlight_flag() dict
-    return ['highlight', 'default', 'link', self.flag_group(), 'cmakeFlag']
-  endfunction
-  function l:subcommand.cluster() dict
+  function subcommand.cluster() dict
     let l:category = s:capitalize(self.category)
     let l:target = s:group(self.group())
-    return ['syntax', 'cluster', self.cluster_group(), 'add=' .. l:target]
+    return ['syntax', 'cluster', self.cluster_group, 'add=' .. l:target]
   endfunction
-  function l:subcommand.match() dict
+  function subcommand.match() dict
     const l:match = 'matchgroup=cmakeSubcommand'
     const l:start = 'start=/\v%(<' .. self.category .. ')@<=\s*\(\zs' .. self.name .. '/'
     const l:end = 'end=/\v\)/he=e-1'
     const l:contains = 'contains=@cmakeExpression'
-    return ['syntax', 'region', self.match_group(), l:match, l:start, l:end, l:contains]
+    return ['syntax', 'region', self.match_group, l:match, l:start, l:end, l:contains]
   endfunction
-  return l:subcommand
+  let subcommand.flag = function('cmake#generate#SubcommandFlags', subcommand)
+  let subcommand.cluster_group = s:group(s:capitalize(subcommand.category), 'Subcommands')
+  let subcommand.keyword_group = s:group(subcommand.group(), 'Keyword')
+  let subcommand.flag_group = s:group(subcommand.group(), 'Flag')
+  let subcommand.match_group = s:group(subcommand.group())
+  return subcommand
 endfunction
 
 function! cmake#syntax#SubcommandSet(name)
@@ -159,17 +137,23 @@ function! cmake#syntax#SubcommandSet(name)
   let l:shared_keywords = get(l:data, 'keyword', [])
   let l:shared_flags = get(l:data, 'flag', [])
   let l:complex = get(l:data, 'complex', {})
-  call s:execute('syntax', 'keyword', 'cmakeCommand', a:name, 'skipwhite', 'nextgroup=@' .. s:group(a:name, 'Subcommands'))
+  call s:syntax_keyword('cmakeCommand', a:name, 'skipwhite', 'nextgroup=@' .. s:group(s:capitalize(a:name), 'Subcommands'))
   for [subcommand, values] in items(l:complex)
     let l:keywords = get(values, 'keyword', []) + l:shared_keywords
     let l:flags = get(values, 'flag', []) + l:shared_flags
     let l:subcommand = cmake#syntax#Subcommand(a:name, subcommand, l:keywords, l:flags)
     call s:execute(l:subcommand.cluster())
     call s:execute(l:subcommand.match())
-    call s:execute(l:subcommand.keyword())
-    call s:execute(l:subcommand.flag())
-    call s:execute(l:subcommand.highlight_keyword())
-    call s:execute(l:subcommand.highlight_flag())
+    if !empty(l:subcommand.keywords)
+      call s:syntax_keyword(l:subcommand.keyword_group, l:subcommand.keyword())
+    endif
+      call s:execute(l:subcommand.flag())
+    if !empty(l:subcommand.keywords)
+      call s:highlight(l:subcommand.keyword_group, 'cmakeKeyword')
+    endif
+    if !empty(l:subcommand.flags)
+      call s:highlight(l:subcommand.flag_group, 'cmakeFlag')
+    endif
     unlet l:keywords
     unlet l:flags
   endfor
@@ -178,13 +162,15 @@ function! cmake#syntax#SubcommandSet(name)
     let l:subcommand = cmake#syntax#Subcommand(a:name, subcommand, l:shared_keywords, l:shared_flags)
     call s:execute(l:subcommand.cluster())
     call s:execute(l:subcommand.match())
-    call s:execute(l:subcommand.keyword())
-    call s:execute(l:subcommand.flag())
-    if !empty(l:subcommand.keyword())
-      call s:execute(l:subcommand.highlight_keyword())
+    if !empty(l:subcommand.keywords)
+      call s:syntax_keyword(l:subcommand.keyword_group, l:subcommand.keyword())
     endif
-    if !empty(l:subcommand.flag())
-      call s:execute(l:subcommand.highlight_flag())
+    call s:execute(l:subcommand.flag())
+    if !empty(l:subcommand.keywords)
+      call s:highlight(l:subcommand.keyword_group, 'cmakeKeyword')
+    endif
+    if !empty(l:subcommand.flags)
+      call s:highlight(l:subcommand.flag_group, 'cmakeFlag')
     endif
   endfor
 endfunction
@@ -199,7 +185,7 @@ function! cmake#syntax#ModuleSet(name)
         \ ? s:capitalize(a:name) .. 'Include'
         \ : 'Include'
   call cmake#syntax#Keyword(l:group, get(data, 'keyword', []))
-  call cmake#syntax#LinkTo(l:group, l:highlight)
+  call s:highlight('cmake' .. l:group, l:highlight)
 endfunction
 
 
@@ -213,7 +199,7 @@ function! cmake#syntax#VariableSet(name)
   call cmake#syntax#Pattern(l:group, get(data, 'pattern', []))
   call cmake#syntax#Suffix(l:group, get(data, 'suffix', []))
   call cmake#syntax#Prefix(l:group, get(data, 'prefix', []))
-  call cmake#syntax#LinkTo(l:group, l:highlight)
+  call s:highlight('cmake' .. l:group, l:highlight)
 endfunction
 
 function! cmake#syntax#OperatorSet(name)
@@ -221,7 +207,7 @@ function! cmake#syntax#OperatorSet(name)
   let l:group = s:capitalize(a:name) . 'Operator'
   let l:entries = type(l:data) == v:t_dict ? s:flatten(values(l:data)) : l:data
   call cmake#syntax#Keyword(l:group, entries, 'contained')
-  call cmake#syntax#LinkTo(l:group, 'Operator')
+  call s:highlight('cmake' .. l:group, 'Operator')
 endfunction
 
 function! cmake#syntax#PropertySet(name)
@@ -234,57 +220,51 @@ function! cmake#syntax#PropertySet(name)
   call cmake#syntax#Pattern(l:group, get(l:data, 'pattern', []))
   call cmake#syntax#Suffix(l:group, get(l:data, 'suffix', []))
   call cmake#syntax#Prefix(l:group, get(l:data, 'prefix', []))
-  call cmake#syntax#LinkTo(l:group, l:highlight)
+  call s:highlight('cmake' .. l:group, l:highlight)
+endfunction
+
+function! cmake#syntax#References()
+  for prefix in ['CACHE', 'ENV', '']
+    let reference = cmake#generate#Reference(prefix)
+    call map(reference, {idx, val -> join(val, ' ')})
+    call extend(g:cmake#syntax#syntax_text, reference)
+  endfor
 endfunction
 
 function! cmake#syntax#Operators()
-  call cmake#syntax#OperatorSet('conditional')
-  call cmake#syntax#OperatorSet('generator')
-  call cmake#syntax#OperatorSet('repeat')
+  for name in keys(g:cmake#data#operators)
+    let operator = cmake#generate#Operator(name)
+    call map(operator.syntax, {idx, val -> join(val, ' ')})
+    call map(operator.highlight, {idx, val -> join(val, ' ')})
+    call extend(g:cmake#syntax#syntax_text, operator.syntax)
+    call extend(g:cmake#syntax#highlight_text, operator.highlight)
+  endfor
 endfunction
 
 function! cmake#syntax#Variables()
-  call cmake#syntax#VariableSet('information')
-  call cmake#syntax#VariableSet('behavior')
-  call cmake#syntax#VariableSet('system')
-  call cmake#syntax#VariableSet('build')
-  call cmake#syntax#VariableSet('language')
-  call cmake#syntax#VariableSet('ctest')
-  call cmake#syntax#VariableSet('cpack')
-  call cmake#syntax#VariableSet('internal')
+  for name in keys(g:cmake#data#variables)
+    call cmake#syntax#VariableSet(name)
+  endfor
 endfunction
 
 function! cmake#syntax#Properties()
-  call cmake#syntax#PropertySet('global')
-  call cmake#syntax#PropertySet('directory')
-  call cmake#syntax#PropertySet('target')
-  call cmake#syntax#PropertySet('test')
-  call cmake#syntax#PropertySet('source-file')
-  call cmake#syntax#PropertySet('cache')
-  call cmake#syntax#PropertySet('installed')
-  call cmake#syntax#PropertySet('deprecated')
+  for name in keys(g:cmake#data#properties)
+    call cmake#syntax#PropertySet(name)
+  endfor
 endfunction
 
 function! cmake#syntax#Modules()
-  call cmake#syntax#ModuleSet('utilities')
-  call cmake#syntax#ModuleSet('check')
-  call cmake#syntax#ModuleSet('cmake')
-  call cmake#syntax#ModuleSet('ctest')
-  call cmake#syntax#ModuleSet('cpack')
-  call cmake#syntax#ModuleSet('test')
-  call cmake#syntax#ModuleSet('use')
-
-  call cmake#syntax#ModuleSet('deprecated')
-  call cmake#syntax#ModuleSet('error')
+  for name in keys(g:cmake#data#modules)
+    call cmake#syntax#ModuleSet(name)
+  endfor
 endfunction
 
+function! cmake#syntax#Commands()
+endfunction
+
+" TODO: Move these to be under the commands/ directory
 function! cmake#syntax#Subcommands()
-  call cmake#syntax#SubcommandSet('add_custom_command')
-  call cmake#syntax#SubcommandSet('get_property')
-  call cmake#syntax#SubcommandSet('set_property')
-  call cmake#syntax#SubcommandSet('install')
-  call cmake#syntax#SubcommandSet('message')
-  call cmake#syntax#SubcommandSet('string')
-  call cmake#syntax#SubcommandSet('list')
-  call cmake#syntax#SubcommandSet('file')
+  for name in keys(g:cmake#data#subcommands)
+    call cmake#syntax#SubcommandSet(name)
+  endfor
 endfunction

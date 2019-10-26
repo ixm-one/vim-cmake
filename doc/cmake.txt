@@ -1,0 +1,86 @@
+*cmake.txt*        A plugin for CMake light years ahead of the rest
+
+Author: Isabella Muerte <@slurpsmadrips>
+License: MIT License
+
+                             Syntax Highlighting
+                            Project Configuration
+                                  And More!
+
+INTRODUCTION                                                              *cmake*
+
+===============================================================================
+CONTENTS                                                         *cmake-contents*
+
+        1. Commands..............................................|cmake-commands|
+        2. Settings..............................................|cmake-settings|
+        3. Generate..............................................|cmake-generate|
+        4. Building..............................................|cmake-building|
+
+===============================================================================
+COMMANDS                                                         *cmake-commands*
+
+                            *cmake-:CMakeRegenerateSyntax* *:CMakeRegenerateSyntax*
+
+:CMakeRegenerateSyntax      Regenerates the syntax files included by this
+                            plugin. This command is automatically called when
+                            the plugin internal cache directory does not exist,
+                            and when the contents of 'runtimepath', 'packpath',
+                            and |g:cmake_api_path| have changed.
+                            This operation can be expensive, so call
+                            it after updating the plugin, or if you're adding
+                            your own API files to a project.
+
+
+                                *cmake-:CMakeRegenerateTags* *:CMakeRegenerateTags*
+
+:CMakeRegenerateTags        Regenerates the tag file for the current project.
+
+                                              *cmake-:CMakeWhisper* *:CMakeWhisper*
+
+:CMakeWhisper               Turns all instances of `UPPERCASE_COMMAND_CALLS`
+                            into their lowercase counterparts in the current
+                            buffer. This is useful when converting older
+                            projects or updating code where people have
+                            copy-pasted old CMake from the internet. CMake has
+                            supported case-insensitive commands for over a
+                            decade. Please just use the lowercase form. This
+                            plugin does NOT support anything but the
+                            "canonical" spelling of commands and functions.
+
+===============================================================================
+SETTINGS                                                         *cmake-settings*
+
+
+
+                                                               *g:cmake_api_path*
+
+A list of paths, absolute or relative, that will be searched in addition to
+'runtimepath' and 'packpath' when generating syntax files for the API. This
+value is empty by default.
+
+                                                  *g:cmake_api_manual_generation*
+
+When |TRUE|, `:CMakeRegenerateSyntax` is only called when the cache directory
+is missing, or when manually invoked. Checks to see if 'runtimepath',
+'packpath', and |g:cmake_api_path| are disabled.
+
+                                                    *g:cmake_api_silent_warnings*
+
+When |TRUE|, `:CMakeRegenerateSyntax` will not warn when invalid JSON API files
+are discovered in the search paths.
+
+                                                        *g:cmake_build_directory*
+
+This must be a relative path name. It is the name of the output directory where
+projects will by built. By default, this value is set to "build", and rarely
+will it be changed. 
+
+Note: This MAY NOT be the same as the source directory for a given project.
+The configure step will error out before every invoking CMake.
+
+                                                         *g:cmake_yaml_converter*
+
+This can be either a |Funcref|, or a string. If present, then this plugin can
+read the cmake-variants.yaml file that vscode-cmake-tools supports. If not,
+then the variant support is limited to a cmake-variants.json file.

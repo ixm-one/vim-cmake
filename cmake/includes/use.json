@@ -1,0 +1,11 @@
+{
+    "@type": "include",
+    "keyword": [
+        "UseEcos",
+        "UseJavaClassFilelist",
+        "UseJava",
+        "UseJavaSymlinks",
+        "UseSWIG",
+        "UsewxWidgets"
+    ]
+}

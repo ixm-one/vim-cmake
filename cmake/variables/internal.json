@@ -1,0 +1,16 @@
+{
+    "@type": "variable",
+    "@highlight": "WarningMsg",
+    "keyword": [
+        "CMAKE_HOME_DIRECTORY",
+        "CMAKE_INTERNAL_PLATFORM_ABI",
+        "CMAKE_NOT_USING_CONFIG_FLAGS",
+        "CMAKE_VS_INTEL_Fortran_PROJECT_VERSION"
+    ],
+    "pattern": [
+        "CMAKE_\\w+_COMPILER_ABI",
+        "CMAKE_\\w+_COMPILER_ARCHITECTURE_ID",
+        "CMAKE_\\w+_COMPILER_VERSION_INTERNAL",
+        "CMAKE_\\w+_PLATFORM_ID"
+    ]
+}

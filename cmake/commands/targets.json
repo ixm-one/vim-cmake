@@ -1,0 +1,133 @@
+{
+    "add_custom_target": {
+        "keyword": [
+            "COMMAND",
+            "DEPENDS",
+            "BYPRODUCTS",
+            "WORKING_DIR",
+            "COMMENT",
+            "JOB_POOL",
+            "VERBATIM",
+            "SOURCES"
+        ],
+        "flag": [
+            "COMMAND_EXPAND_LISTS",
+            "USES_TERMINAL",
+            "VERBATIM",
+            "ALL"
+        ]
+    },
+    "add_executable": {
+        "flag": [
+            "WIN32",
+            "MACOSX_BUNDLE",
+            "EXCLUDE_FROM_ALL",
+            "IMPORTED",
+            "GLOBAL",
+            "ALIAS"
+        ]
+    },
+    "add_library": {
+        "flag": [
+            "STATIC",
+            "SHARED",
+            "MODULE",
+            "EXCLUDE_FROM_ALL",
+            "OBJECT",
+            "UNKNOWN",
+            "IMPORTED",
+            "GLOBAL",
+            "INTERFACE",
+            "ALIAS"
+        ]
+    },
+    "add_test": {
+        "keyword": [
+            "NAME",
+            "COMMAND",
+            "CONFIGURATIONS",
+            "WORKING_DIRECTORY"
+        ],
+        "flag": [
+            "COMMAND_EXPAND_LISTS"
+        ]
+    },
+    "add_dependencies": {},
+    "target_compile_definitions": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ]
+    },
+    "target_compile_features": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ]
+    },
+    "target_compile_options": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ],
+        "flag": [
+            "BEFORE"
+        ]
+    },
+    "target_include_directories": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ],
+        "flag": [
+            "BEFORE",
+            "SYSTEM"
+        ]
+    },
+    "target_link_directories": {
+        "keywords": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ],
+        "flag": [
+            "BEFORE"
+        ]
+    },
+    "target_link_libraries": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC",
+            "LINK_PRIVATE",
+            "LINK_PUBLIC",
+            "LINK_INTERFACE_LIBRARIES"
+        ]
+    },
+    "target_link_options": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ]
+    },
+    "target_precompile_headers": {
+        "keyword": [
+            "REUSE_FROM",
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ]
+    },
+    "target_sources": {
+        "keyword": [
+            "INTERFACE",
+            "PRIVATE",
+            "PUBLIC"
+        ]
+    }
+}

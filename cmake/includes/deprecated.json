@@ -1,0 +1,25 @@
+{
+    "@type": "include",
+    "@highlight": "WarningMsg",
+    "keyword": [
+        "TestForANSIForScope",
+        "TestForANSIStreamHeaders",
+        "TestForSSTREAM",
+        "TestForSTDNamespace",
+        "CMakeDetermineVSServicePack",
+        "CMakeExpandImportedTargets",
+        "CMakeForceCompiler",
+        "CMakeParseArguments",
+        "MacroAddFileDependencies",
+        "TestCXXAcceptsFlag",
+        "UsePkgConfig",
+        "Use_wxWindows",
+        "SelectLibraryConfigurations",
+        "WriteBasicConfigVersionFile",
+        "ProcessorCount",
+        "SquishTestScript",
+        "Documentation",
+        "DeployQt4",
+        "Dart"
+    ]
+}

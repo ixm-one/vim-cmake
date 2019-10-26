@@ -1,0 +1,68 @@
+{
+    "set_property": {
+        "keyword": [
+            "PROPERTY"
+        ],
+        "special": [
+            "GLOBAL",
+            "DIRECTORY",
+            "TARGET",
+            "SOURCE",
+            "INSTALL",
+            "TEST",
+            "CACHE",
+            "VARIABLE"
+        ]
+    },
+    "set_source_files_properties": {
+        "keyword": [
+            "PROPERTIES"
+        ]
+    },
+    "set_directory_properties": {
+        "keyword": [
+            "PROPERTIES"
+        ]
+    },
+    "set_target_properties": {
+        "keyword": [
+            "PROPERTIES"
+        ]
+    },
+    "set_test_properties": {
+        "keyword": [
+            "PROPERTIES"
+        ]
+    },
+    "get_source_file_property": {},
+    "get_target_property": {},
+    "get_cmake_property": {},
+    "get_test_property": {},
+    "get_directory_property": {
+        "keyword": [
+            "DIRECTORY",
+            "DEFINITION"
+        ]
+    },
+    "get_property": {
+        "keyword": [
+            "PROPERTY"
+        ],
+        "flag": [
+            "SET",
+            "DEFINED",
+            "BRIEF_DOCS",
+            "FULL_DOCS"
+        ],
+        "special": [
+            "GLOBAL",
+            "DIRECTORY",
+            "TARGET",
+            "SOURCE",
+            "INSTALL",
+            "TEST",
+            "CACHE",
+            "VARIABLE"
+        ]
+    }
+}

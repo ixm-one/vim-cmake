@@ -1,0 +1,57 @@
+{
+    "try_compile": {
+        "keyword": [
+            "SOURCES",
+            "CMAKE_FLAGS",
+            "COMPILE_DEFINITIONS",
+            "LINK_OPTIONS",
+            "LINK_LIBRARIES",
+            "OUTPUT_VARIABLE",
+            "COPY_FILE",
+            "COPY_FILE_ERROR"
+        ],
+        "prefix": [
+            "STANDARD",
+            "STANDARD_REQUIRED",
+            "EXTENSIONS"
+        ]
+    },
+    "try_run": {
+        "keyword": [
+            "CMAKE_FLAGS",
+            "COMPILE_DEFINITIONS",
+            "LINK_OPTIONS",
+            "LINK_LIBRARIES",
+            "COMPILE_OUTPUT_VARIABLE",
+            "RUN_OUTPUT_VARIABLE",
+            "OUTPUT_VARIABLE",
+            "ARGS"
+        ]
+    },
+    "project": {
+        "keyword": [
+            "VERSION",
+            "DESCRIPTION",
+            "HOMEPAGE_URL",
+            "LANGUAGES"
+        ]
+    },
+    "load_cache": {
+        "keyword": [
+            "EXCLUDE",
+            "INCLUDE_INTERNALS"
+        ],
+        "flag": [
+            "READ_WITH_PREFIX"
+        ]
+    },
+    "source_group": {
+        "keyword": [
+            "TREE",
+            "FILES",
+            "REGULAR_EXPRESSION",
+            "PREFIX",
+            "FILES"
+        ]
+    }
+}

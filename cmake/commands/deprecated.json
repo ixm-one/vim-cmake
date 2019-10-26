@@ -1,0 +1,60 @@
+{
+    "@highlight": "WarningMsg",
+    "include_external_msproject": {
+        "keyword": [
+            "TYPE",
+            "GUID",
+            "PLATFORM"
+        ]
+    },
+    "create_test_sourcelist": {
+        "keyword": [
+            "EXTRA_INCLUDE",
+            "FUNCTION"
+        ]
+    },
+    "define_property": {
+        "keyword": [
+            "PROPERTY",
+            "BRIEF_DOCS",
+            "FULL_DOCS"
+        ],
+        "flag": [
+            "GLOBAL",
+            "DIRECTORY",
+            "TARGET",
+            "SOURCE",
+            "TEST",
+            "VARIABLE",
+            "CACHED_VARIABLE",
+            "INHERITED"
+        ]
+    },
+    "build_command": {
+        "keyword": [
+            "CONFIGURATION",
+            "TARGET",
+            "PROJECT_NAME"
+        ]
+    },
+    "export": {
+        "keyword": [
+            "EXPORT",
+            "NAMESPACE",
+            "FILE",
+            "PACKAGE",
+            "TARGETS",
+            "ANDROID_MK"
+        ],
+        "flag": [
+            "APPEND",
+            "EXPORT_LINK_INTERFACE_LIBRARIES"
+        ]
+    },
+    "include_regular_expression": {},
+    "fltk_wrap_ui": {},
+    "enable_testing": {},
+    "aux_source_directory": {},
+    "remove_definitions": {},
+    "add_definitions": {}
+}

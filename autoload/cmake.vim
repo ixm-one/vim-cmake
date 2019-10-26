@@ -11,7 +11,7 @@ endfunction
 function! cmake#Apply(list, f, ...)
   let l:result = []
   for item in a:list
-    eval add(l:result, function(a:f, a:000)(item))
+    eval add(l:result, function(a:f, item)
   endfor
   return l:result
 endfunction

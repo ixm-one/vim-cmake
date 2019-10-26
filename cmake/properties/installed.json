@@ -1,0 +1,11 @@
+{
+    "@type": "property",
+    "keyword": [
+        "CPACK_DESKTOP_SHORTCUTS",
+        "CPACK_NEVER_OVERWRITE",
+        "CPACK_PERMANENT",
+        "CPACK_START_MENU_SHORTCUTS",
+        "CPACK_STARTUP_SHORTCUTS",
+        "CPACK_WIX_ACL"
+    ]
+}

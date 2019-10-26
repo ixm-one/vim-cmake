@@ -1,0 +1,13 @@
+{
+    "@type": "property",
+    "@highlight": "WarningMsg",
+    "keyword": [
+        "ADDITIONAL_MAKE_CLEAN_FILES",
+        "TEST_INCLUDE_FILE",
+        "POST_INSTALL_SCRIPT",
+        "PRE_INSTALL_SCRIPT"
+    ],
+    "suffix": [
+        "COMPILE_DEFINITIONS"
+    ]
+}

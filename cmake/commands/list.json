@@ -1,0 +1,48 @@
+{
+    "@type": "command",
+    "list": {
+        "subcommands": {
+            "TRANSFORM": {
+                "keyword": [
+                    "OUTPUT_VARIABLE",
+                    "APPEND",
+                    "PREPEND",
+                    "REPLACE",
+                    "AT",
+                    "FOR",
+                    "REGEX"
+                ],
+                "flag": [
+                    "TOLOWER",
+                    "TOUPPER",
+                    "STRIP",
+                    "GENEX_STRIP"
+                ]
+            },
+            "FILTER": {
+                "flag": [
+                    "INCLUDE",
+                    "EXCLUDE"
+                ],
+                "keyword": [
+                    "REGEX"
+                ]
+            },
+            "SORT": {
+                "keyword": [
+                    "COMPARE",
+                    "CASE",
+                    "ORDER"
+                ],
+                "flag": [
+                    "STRING",
+                    "FILE_BASENAME",
+                    "SENSITIVE",
+                    "INSENSITIVE",
+                    "ASCENDING",
+                    "DESCENDING"
+                ]
+            }
+        }
+    }
+}

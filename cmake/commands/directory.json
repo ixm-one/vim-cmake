@@ -1,0 +1,25 @@
+{
+    "link_directories": {
+        "flag": [
+            "AFTER",
+            "BEFORE"
+        ]
+    },
+    "link_libraries": {
+        "flag": [
+            "debug",
+            "optimized",
+            "general"
+        ]
+    },
+    "include_directories": {
+        "flag": [
+            "SYSTEM",
+            "AFTER",
+            "BEFORE"
+        ]
+    },
+    "add_compile_definitions": {},
+    "add_compile_options": {},
+    "add_link_options": {}
+}

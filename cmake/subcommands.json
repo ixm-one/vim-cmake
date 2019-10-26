@@ -15,50 +15,7 @@
             "REMOVE_AT",
             "REMOVE_DUPLICATES",
             "REVERSE"
-        ],
-        "complex": {
-            "TRANSFORM": {
-                "keyword": [
-                    "OUTPUT_VARIABLE",
-                    "APPEND",
-                    "PREPEND",
-                    "REPLACE",
-                    "AT",
-                    "FOR",
-                    "REGEX"
-                ],
-                "flag": [
-                    "TOLOWER",
-                    "TOUPPER",
-                    "STRIP",
-                    "GENEX_STRIP"
-                ]
-            },
-            "FILTER": {
-                "flag": [
-                    "INCLUDE",
-                    "EXCLUDE"
-                ],
-                "keyword": [
-                    "REGEX"
-                ]
-            },
-            "SORT": {
-                "keyword": [
-                    "COMPARE",
-                    "CASE",
-                    "ORDER"
-                ],
-                "flag": [
-                    "STRING",
-                    "FILE_BASENAME",
-                    "SENSITIVE",
-                    "INSENSITIVE",
-                    "ASCENDING",
-                    "DESCENDING"
-                ]
-            }
-        }
+        ]
     },
     "string": {
         "simple": [
@@ -299,12 +256,22 @@
                 ]
             },
             "DOWNLOAD": {
-                "@use": "UPLOAD",
                 "keyword": [
+                    "INACTIVITY_TIMEOUT",
+                    "LOG",
+                    "STATUS",
+                    "TIMEOUT",
+                    "USERPWD",
+                    "HTTPHEADER",
+                    "NETRC",
+                    "NETRC_FILE",
                     "EXPECTED_HASH",
                     "TLS_VERIFY",
                     "TLS_CAINFO",
                     "EXPECTED_MD5"
+                ],
+                "flag": [
+                    "SHOW_PROGRESS"
                 ]
             },
             "LOCK": {
@@ -335,42 +302,6 @@
             "VERBOSE",
             "DEBUG",
             "TRACE"
-        ]
-    },
-    "set_property": {
-        "keyword": [
-            "PROPERTY"
-        ],
-        "simple": [
-            "GLOBAL",
-            "DIRECTORY",
-            "TARGET",
-            "SOURCE",
-            "INSTALL",
-            "TEST",
-            "CACHE",
-            "VARIABLE"
-        ]
-    },
-    "get_property": {
-        "keyword": [
-            "PROPERTY"
-        ],
-        "flag": [
-            "SET",
-            "DEFINED",
-            "BRIEF_DOCS",
-            "FULL_DOCS"
-        ],
-        "simple": [
-            "GLOBAL",
-            "DIRECTORY",
-            "TARGET",
-            "SOURCE",
-            "INSTALL",
-            "TEST",
-            "CACHE",
-            "VARIABLE"
         ]
     },
     "add_custom_command": {

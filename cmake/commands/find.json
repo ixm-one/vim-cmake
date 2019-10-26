@@ -1,0 +1,119 @@
+{
+    "find_file": {
+        "keyword": [
+            "NAMES",
+            "HINTS",
+            "PATHS",
+            "PATH_SUFFIXES",
+            "DOC"
+        ],
+        "flag": [
+            "NO_DEFAULT_PATH",
+            "NO_PACKAGE_ROOT_PATH",
+            "NO_CMAKE_PATH",
+            "NO_CMAKE_ENVIRONMENT_PATH",
+            "NO_SYSTEM_ENVIRONMENT_PATH",
+            "NO_CMAKE_SYSTEM_PATH",
+            "CMAKE_FIND_ROOT_PATH_BOTH",
+            "ONLY_CMAKE_FIND_ROOT_PATH",
+            "NO_CMAKE_FIND_ROOT_PATH"
+        ]
+    },
+    "find_path": {
+        "keyword": [
+            "NAMES",
+            "HINTS",
+            "PATHS",
+            "PATH_SUFFIXES",
+            "DOC"
+        ],
+        "flag": [
+            "NO_DEFAULT_PATH",
+            "NO_PACKAGE_ROOT_PATH",
+            "NO_CMAKE_PATH",
+            "NO_CMAKE_ENVIRONMENT_PATH",
+            "NO_SYSTEM_ENVIRONMENT_PATH",
+            "NO_CMAKE_SYSTEM_PATH",
+            "CMAKE_FIND_ROOT_PATH_BOTH",
+            "ONLY_CMAKE_FIND_ROOT_PATH",
+            "NO_CMAKE_FIND_ROOT_PATH"
+        ]
+    },
+    "find_library": {
+        "keyword": [
+            "NAMES",
+            "HINTS",
+            "PATHS",
+            "PATH_SUFFIXES",
+            "DOC"
+        ],
+        "flag": [
+            "NAMES_PER_DIR",
+            "NO_DEFAULT_PATH",
+            "NO_PACKAGE_ROOT_PATH",
+            "NO_CMAKE_PATH",
+            "NO_CMAKE_ENVIRONMENT_PATH",
+            "NO_SYSTEM_ENVIRONMENT_PATH",
+            "NO_CMAKE_SYSTEM_PATH",
+            "CMAKE_FIND_ROOT_PATH_BOTH",
+            "ONLY_CMAKE_FIND_ROOT_PATH",
+            "NO_CMAKE_FIND_ROOT_PATH"
+        ]
+    },
+    "find_program": {
+        "keyword": [
+            "NAMES",
+            "HINTS",
+            "PATHS",
+            "PATH_SUFFIXES",
+            "DOC"
+        ],
+        "flag": [
+            "NAMES_PER_DIR",
+            "NO_DEFAULT_PATH",
+            "NO_PACKAGE_ROOT_PATH",
+            "NO_CMAKE_PATH",
+            "NO_CMAKE_ENVIRONMENT_PATH",
+            "NO_SYSTEM_ENVIRONMENT_PATH",
+            "NO_CMAKE_SYSTEM_PATH",
+            "CMAKE_FIND_ROOT_PATH_BOTH",
+            "ONLY_CMAKE_FIND_ROOT_PATH",
+            "NO_CMAKE_FIND_ROOT_PATH"
+        ]
+    },
+    "find_package": {
+        "keyword": [
+            "NAMES",
+            "HINTS",
+            "PATHS",
+            "PATH_SUFFIXES",
+            "DOC",
+            "OPTIONAL_COMPONENTS",
+            "COMPONENTS",
+            "CONFIGS"
+        ],
+        "flag": [
+            "EXACT",
+            "QUIET",
+            "MODULE",
+            "REQUIRED",
+            "NO_POLICY_SCOPE",
+            "CONFIG",
+            "NO_MODULE",
+            "NO_CMAKE_PACKAGE_REGISTRY",
+            "NO_CMAKE_SYSTEM_PACKAGE_REGISTRY",
+            "NO_DEFAULT_PATH",
+            "NO_PACKAGE_ROOT_PATH",
+            "NO_CMAKE_PATH",
+            "NO_CMAKE_ENVIRONMENT_PATH",
+            "NO_SYSTEM_ENVIRONMENT_PATH",
+            "NO_CMAKE_SYSTEM_PATH",
+            "CMAKE_FIND_ROOT_PATH_BOTH",
+            "ONLY_CMAKE_FIND_ROOT_PATH",
+            "NO_CMAKE_FIND_ROOT_PATH"
+        ],
+        "deprecated": [
+            "NO_CMAKE_BUILDS_PATH"
+        ]
+    }
+}

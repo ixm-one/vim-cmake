@@ -1,0 +1,9 @@
+{
+  "@type": "include",
+  "keyword": [
+    "CTest",
+    "CTest",
+    "CTestScriptMode",
+    "CTestUseLaunchers"
+  ]
+}

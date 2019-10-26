@@ -1,0 +1,7 @@
+{
+    "@type": "include",
+    "keyword": [
+        "AndroidTestUtilities",
+        "CSharpUtilities"
+    ]
+}

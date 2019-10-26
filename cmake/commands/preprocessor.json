@@ -1,0 +1,41 @@
+{
+    "@highlight": "Preprocessor",
+    "add_subdirectory": {
+        "flag": [
+            "EXCLUDE_FROM_ALL"
+        ]
+    },
+    "include": {
+        "flag": [
+            "OPTIONAL",
+            "NO_POLICY_SCOPE"
+        ],
+        "keyword": [
+            "RESULT_VARIABLE"
+        ]
+    },
+    "include_guard": {
+        "subcommands": [
+            "DIRECTORY",
+            "GLOBAL"
+        ]
+    },
+    "cmake_minimum_required": {
+        "subcommands": [
+            "VERSION"
+        ],
+        "flag": [
+            "FATAL_ERROR"
+        ]
+    },
+    "configure_file": {
+        "keyword": [
+            "NEWLINE_STYLE"
+        ],
+        "flag": [
+            "COPYONLY",
+            "ESCAPE_QUOTES",
+            "@ONLY"
+        ]
+    }
+}

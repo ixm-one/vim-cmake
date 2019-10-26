@@ -1,1 +1,1 @@
-autocmd BufRead *.ixm set filetype=ixm
+autocmd BufRead *.ixm setlocal filetype=ixm

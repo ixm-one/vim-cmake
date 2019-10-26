@@ -1,0 +1,30 @@
+{
+    "@type": "property",
+    "keyword": [
+        "ATTACHED_FILES_ON_FAIL",
+        "ATTACHED_FILES",
+        "COST",
+        "DEPENDS",
+        "DISABLED",
+        "ENVIRONMENT",
+        "FAIL_REGULAR_EXPRESSION",
+        "FIXTURES_CLEANUP",
+        "FIXTURES_REQUIRED",
+        "FIXTURES_SETUP",
+        "LABELS",
+        "MEASUREMENT",
+        "PASS_REGULAR_EXPRESSION",
+        "PROCESSES",
+        "PROCESSOR_AFFINITY",
+        "PROCESSORS",
+        "REQUIRED_FILES",
+        "RESOURCE_LOCK",
+        "RUN_SERIAL",
+        "SKIP_REGULAR_EXPRESSION",
+        "SKIP_RETURN_CODE",
+        "TIMEOUT",
+        "TIMEOUT_AFTER_MATCH",
+        "WILL_FAIL",
+        "WORKING_DIRECTORY"
+    ]
+}

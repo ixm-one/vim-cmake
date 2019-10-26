@@ -1,0 +1,58 @@
+{
+    "@highlight": "Error",
+    "build_name": {},
+    "exec_program": {
+        "keyword": [
+            "ARGS",
+            "OUTPUT_VARIABLE",
+            "RETURN_VALUE"
+        ]
+    },
+    "export_library_dependencies": {
+        "flag": [
+            "APPEND"
+        ]
+    },
+    "install_files": {
+        "keyword": [
+            "FILES"
+        ]
+    },
+    "install_programs": {
+        "keyword": [
+            "FILES"
+        ]
+    },
+    "install_targets": {
+        "keyword": [
+            "RUNTIME_DIRECTORY"
+        ]
+    },
+    "load_command": {
+        "keyword": [
+            "COMMAND_NAME"
+        ]
+    },
+    "make_directory": {},
+    "output_required_files": {},
+    "qt_wrap_cpp": {},
+    "qt_wrap_ui": {},
+    "remove": {},
+    "subdir_depends": {},
+    "subdirs": {
+        "flag": [
+            "PREORDER"
+        ],
+        "keyword": [
+            "EXCLUDE_FROM_ALL"
+        ]
+    },
+    "use_mangled_mesa": {},
+    "utility_source": {},
+    "variable_required": {},
+    "write_file": {
+        "flag": [
+            "APPEND"
+        ]
+    }
+}
