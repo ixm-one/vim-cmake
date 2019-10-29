@@ -8,8 +8,6 @@ if exists('b:current_syntax') | finish | endif
 
 syntax iskeyword @,45-57,@-@,+,_
 
-" This allows generator expressions to act like matching pairs
-setlocal matchpairs+=<:> 
 
 " non-data based keywords and matches
 syntax keyword cmakeCommand function endfunction macro endmacro

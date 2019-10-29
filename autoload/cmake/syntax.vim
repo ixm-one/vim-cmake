@@ -225,6 +225,7 @@ endfunction
 
 function! cmake#syntax#References()
   for prefix in ['CACHE', 'ENV', '']
+    echo prefix
     let reference = cmake#generate#Reference(prefix)
     call map(reference, {idx, val -> join(val, ' ')})
     call extend(g:cmake#syntax#syntax_text, reference)

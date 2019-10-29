@@ -43,5 +43,8 @@ function! CMakeRegenerateSyntax()
     call extend(g:cmake#syntax#text, g:cmake#syntax#syntax_text)
     call extend(g:cmake#syntax#text, g:cmake#syntax#highlight_text)
     call writefile(g:cmake#syntax#text, g:cmake#syntax#cache)
+    let g:cmake#syntax#text = []
+    let g:cmake#syntax#syntax_text = []
+    let g:cmake#syntax#highlight_text = []
   "endif
 endfunction

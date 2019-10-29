@@ -20,21 +20,23 @@ CONTENTS                                                         *cmake-contents
 ===============================================================================
 COMMANDS                                                         *cmake-commands*
 
-                            *cmake-:CMakeRegenerateSyntax* *:CMakeRegenerateSyntax*
+                            *cmake-:CMakeGenerateSyntax* *:CMakeGenerateSyntax*
 
-:CMakeRegenerateSyntax      Regenerates the syntax files included by this
+:CMakeGenerateSyntax        Generates the syntax files included by this
                             plugin. This command is automatically called when
                             the plugin internal cache directory does not exist,
                             and when the contents of 'runtimepath', 'packpath',
-                            and |g:cmake_api_path| have changed.
+                            and |g:cmake_syntax_path| have changed.
                             This operation can be expensive, so call
                             it after updating the plugin, or if you're adding
                             your own API files to a project.
 
 
-                                *cmake-:CMakeRegenerateTags* *:CMakeRegenerateTags*
+                                *cmake-:CMakeGenerateTags* *:CMakeGenerateTags*
 
-:CMakeRegenerateTags        Regenerates the tag file for the current project.
+:CMakeGenerateTags          Generates the tag file for the current project.
+
+:CMakeGenerateKits          Generates CMake Kits for use.
 
                                               *cmake-:CMakeWhisper* *:CMakeWhisper*
 
@@ -52,23 +54,31 @@ COMMANDS                                                         *cmake-commands
 SETTINGS                                                         *cmake-settings*
 
 
-
-                                                               *g:cmake_api_path*
+                                                            *g:cmake_syntax_path*
 
 A list of paths, absolute or relative, that will be searched in addition to
 'runtimepath' and 'packpath' when generating syntax files for the API. This
 value is empty by default.
 
-                                                  *g:cmake_api_manual_generation*
+                                                         *g:cmake_syntax_disable*
 
-When |TRUE|, `:CMakeRegenerateSyntax` is only called when the cache directory
-is missing, or when manually invoked. Checks to see if 'runtimepath',
-'packpath', and |g:cmake_api_path| are disabled.
+When |TRUE|, `:CMakeGenerateSyntax` is only called when the cache directory is
+missing, or when manually invoked. This option is ignored if
+|g:cmake_syntax_manual| is |TRUE|
 
-                                                    *g:cmake_api_silent_warnings*
+                                                          *g:cmake_syntax_manual*
 
-When |TRUE|, `:CMakeRegenerateSyntax` will not warn when invalid JSON API files
-are discovered in the search paths.
+When |TRUE|, all automatic syntax generation and events are disabled entirely.
+`:CMakeGenerateSyntax` never runs unless manually executed.
+
+                                                        *g:cmake_syntax_loglevel*
+
+One of "warn", "error", "quiet", or "debug". Affects output of
+|:CMakeGenerateSyntax|. When set to "warn", JSON errors are echoed as messages
+with with |:echohl| set to |hl-WarningMsg|. When set to "error", |:echoerr| is
+used instead. When set to "quiet", all logging output is silenced. When set to
+"debug", additional debug information is output as messages. Any other values
+are treated as "warn".
 
                                                         *g:cmake_build_directory*
 
@@ -79,8 +89,15 @@ will it be changed.
 Note: This MAY NOT be the same as the source directory for a given project.
 The configure step will error out before every invoking CMake.
 
-                                                         *g:cmake_yaml_converter*
 
-This can be either a |Funcref|, or a string. If present, then this plugin can
-read the cmake-variants.yaml file that vscode-cmake-tools supports. If not,
-then the variant support is limited to a cmake-variants.json file.
+                                                         *g:cmake_tool_generator*
+
+The preferred generator to use when building a CMake project. If not set and
+"ninja" is the default, followed by make, and then NMake on Windows.
+
+                                                          *g:cmake_tool_yamlexpr*
+
+This can be either a |Funcref|, or a |String| representing a |Function| name.
+When called, it will be passed a |String| which must be parsed as YAML and then
+returned as JSON. If successful, this plugin can read the "cmake-variants.yaml"
+file that https://github.com/microsoft/vscode-cmake-tools currently supports.
