@@ -1,6 +1,7 @@
 {
+    "@type": "command",
     "find_file": {
-        "keyword": [
+        "parameter": [
             "NAMES",
             "HINTS",
             "PATHS",
@@ -20,7 +21,7 @@
         ]
     },
     "find_path": {
-        "keyword": [
+        "parameter": [
             "NAMES",
             "HINTS",
             "PATHS",
@@ -40,7 +41,7 @@
         ]
     },
     "find_library": {
-        "keyword": [
+        "parameter": [
             "NAMES",
             "HINTS",
             "PATHS",
@@ -61,7 +62,7 @@
         ]
     },
     "find_program": {
-        "keyword": [
+        "parameter": [
             "NAMES",
             "HINTS",
             "PATHS",
@@ -82,7 +83,7 @@
         ]
     },
     "find_package": {
-        "keyword": [
+        "parameter": [
             "NAMES",
             "HINTS",
             "PATHS",

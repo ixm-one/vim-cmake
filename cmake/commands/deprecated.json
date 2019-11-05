@@ -1,20 +1,22 @@
 {
     "@highlight": "WarningMsg",
+    "@type": "command",
+    "@name": "Deprecated",
     "include_external_msproject": {
-        "keyword": [
+        "parameter": [
             "TYPE",
             "GUID",
             "PLATFORM"
         ]
     },
     "create_test_sourcelist": {
-        "keyword": [
+        "parameter": [
             "EXTRA_INCLUDE",
             "FUNCTION"
         ]
     },
     "define_property": {
-        "keyword": [
+        "parameter": [
             "PROPERTY",
             "BRIEF_DOCS",
             "FULL_DOCS"
@@ -31,14 +33,14 @@
         ]
     },
     "build_command": {
-        "keyword": [
+        "parameter": [
             "CONFIGURATION",
             "TARGET",
             "PROJECT_NAME"
         ]
     },
     "export": {
-        "keyword": [
+        "parameter": [
             "EXPORT",
             "NAMESPACE",
             "FILE",

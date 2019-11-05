@@ -1,6 +1,7 @@
 {
+    "@type": "command",
     "set_property": {
-        "keyword": [
+        "parameter": [
             "PROPERTY"
         ],
         "special": [
@@ -15,22 +16,22 @@
         ]
     },
     "set_source_files_properties": {
-        "keyword": [
+        "parameter": [
             "PROPERTIES"
         ]
     },
     "set_directory_properties": {
-        "keyword": [
+        "parameter": [
             "PROPERTIES"
         ]
     },
     "set_target_properties": {
-        "keyword": [
+        "parameter": [
             "PROPERTIES"
         ]
     },
     "set_test_properties": {
-        "keyword": [
+        "parameter": [
             "PROPERTIES"
         ]
     },
@@ -39,13 +40,13 @@
     "get_cmake_property": {},
     "get_test_property": {},
     "get_directory_property": {
-        "keyword": [
+        "parameter": [
             "DIRECTORY",
             "DEFINITION"
         ]
     },
     "get_property": {
-        "keyword": [
+        "parameter": [
             "PROPERTY"
         ],
         "flag": [

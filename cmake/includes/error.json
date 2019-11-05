@@ -1,5 +1,6 @@
 {
   "@type": "include",
   "@highlight": "Error",
+  "@name": "Error",
   "keyword": ["BundleUtilities", "SquishTestScript"]
 }

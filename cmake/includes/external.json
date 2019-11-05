@@ -1,0 +1,8 @@
+{
+  "@type": "include",
+  "keyword": [
+    "ExternalProject",
+    "ExternalData",
+    "FetchContent"
+  ]
+}

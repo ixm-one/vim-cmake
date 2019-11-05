@@ -1,5 +1,7 @@
 {
     "@highlight": "Preprocessor",
+    "@name": "Preprocessor",
+    "@type": "command",
     "add_subdirectory": {
         "flag": [
             "EXCLUDE_FROM_ALL"
@@ -10,7 +12,7 @@
             "OPTIONAL",
             "NO_POLICY_SCOPE"
         ],
-        "keyword": [
+        "parameter": [
             "RESULT_VARIABLE"
         ]
     },
@@ -29,7 +31,7 @@
         ]
     },
     "configure_file": {
-        "keyword": [
+        "parameter": [
             "NEWLINE_STYLE"
         ],
         "flag": [

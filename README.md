@@ -28,10 +28,10 @@ The following features are currently planned for a 1.0 release.
  * [ ] ['includeexpr'][] 
  * [ ] ['formatexpr'][] 
  * [ ] ['indentexpr'][] 
- * [ ] ['commentstring'][] 
+ * [x] ['commentstring'][] 
  * [ ] ['dictionary'][]
  * [ ] ['statusline'][] 
- * [ ] ['comments'][] 
+ * [x] ['comments'][] 
  * [ ] ['include'][] 
  * [ ] ['define'][]
 

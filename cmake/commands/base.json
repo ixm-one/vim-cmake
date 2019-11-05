@@ -1,0 +1,338 @@
+{
+    "@type": "command",
+    "file": {
+        "MD5": {},
+        "SHA1": {},
+        "SHA224": {},
+        "SHA256": {},
+        "SHA384": {},
+        "SHA512": {},
+        "SHA3_224": {},
+        "SHA3_256": {},
+        "SHA3_384": {},
+        "SHA3_512": {},
+        "WRITE": {},
+        "APPEND": {},
+        "TOUCH": {},
+        "TOUCH_NOCREATE": {},
+        "RENAME": {},
+        "REMOVE": {},
+        "REMOVE_RECURSE": {},
+        "MAKE_DIRECTORY": {},
+        "SIZE": {},
+        "READ_SYMLINK": {},
+        "RELATIVE_PATH": {},
+        "TO_CMAKE_PATH": {},
+        "TO_NATIVE_PATH": {},
+        "READ": {
+            "parameter": [
+                "OFFSET",
+                "LIMIT"
+            ],
+            "flag": [
+                "HEX"
+            ]
+        },
+        "STRINGS": {
+            "parameter": [
+                "LENGTH_MAXIMUM",
+                "LENGTH_MINIMUM",
+                "LIMIT_COUNT",
+                "LIMIT_INPUT",
+                "LIMIT_OUTPUT",
+                "NEWLINE_CONSUME",
+                "REGEX",
+                "ENCODING"
+            ],
+            "flag": [
+                "NO_HEX_CONVERSION"
+            ]
+        },
+        "TIMESTAMP": {
+            "flag": [
+                "UTC"
+            ]
+        },
+        "GET_RUNTIME_DEPENDENCIES": {
+            "parameter": [
+                "RESOLVED_DEPENDENCIES_VAR",
+                "UNRESOLVED_DEPENDENCIES_VAR",
+                "CONFLICTING_DEPENDENCIES_PREFIX",
+                "EXECUTABLES",
+                "LIBRARIES",
+                "MODULES",
+                "DIRECTORIES",
+                "BUNDLE_EXECUTABLE",
+                "PRE_INCLUDE_REGEXES",
+                "PRE_EXCLUDE_REGEXES",
+                "POST_INCLUDE_REGEXES",
+                "POST_EXCLUDE_REGEXES"
+            ]
+        },
+        "GENERATE": {
+            "parameter": [
+                "OUTPUT",
+                "INPUT",
+                "CONTENT",
+                "CONDITION"
+            ]
+        },
+        "GLOB": {
+            "parameter": [
+                "LIST_DIRECTORIES",
+                "RELATIVE_PATH"
+            ],
+            "flag": [
+                "CONFIGURE_DEPENDS"
+            ]
+        },
+        "GLOB_RECURSE": {
+            "parameter": [
+                "LIST_DIRECTORIES",
+                "RELATIVE_PATH"
+            ],
+            "flag": [
+                "FOLLOW_SYMLINKS",
+                "CONFIGURE_DEPENDS"
+            ]
+        },
+        "COPY": {
+            "parameter": [
+                "DESTINATION",
+                "FILE_PERMISSIONS",
+                "DIRECTORY_PERMISSIONS",
+                "PATTERN",
+                "REGEX",
+                "PERMISSIONS"
+            ],
+            "flag": [
+                "NO_SOURCE_PERMISSIONS",
+                "USE_SOURCE_PERMISSIONS",
+                "FOLLOW_SYMLINK_CHAIN",
+                "FILES_MATCHING",
+                "EXCLUDE"
+            ]
+        },
+        "INSTALL": {
+            "parameter": [
+                "DESTINATION",
+                "FILE_PERMISSIONS",
+                "DIRECTORY_PERMISSIONS",
+                "PATTERN",
+                "REGEX",
+                "PERMISSIONS"
+            ],
+            "flag": [
+                "NO_SOURCE_PERMISSIONS",
+                "USE_SOURCE_PERMISSIONS",
+                "FOLLOW_SYMLINK_CHAIN",
+                "FILES_MATCHING",
+                "EXCLUDE"
+            ]
+        },
+        "CREATE_SYMLINK": {
+            "parameter": [
+                "RESULT"
+            ],
+            "flag": [
+                "COPY_ON_ERROR",
+                "SYMBOLIC"
+            ]
+        },
+        "UPLOAD": {
+            "parameter": [
+                "INACTIVITY_TIMEOUT",
+                "LOG",
+                "STATUS",
+                "TIMEOUT",
+                "USERPWD",
+                "HTTPHEADER",
+                "NETRC",
+                "NETRC_FILE"
+            ],
+            "flag": [
+                "SHOW_PROGRESS"
+            ]
+        },
+        "DOWNLOAD": {
+            "parameter": [
+                "INACTIVITY_TIMEOUT",
+                "LOG",
+                "STATUS",
+                "TIMEOUT",
+                "USERPWD",
+                "HTTPHEADER",
+                "NETRC",
+                "NETRC_FILE",
+                "EXPECTED_HASH",
+                "TLS_VERIFY",
+                "TLS_CAINFO",
+                "EXPECTED_MD5"
+            ],
+            "flag": [
+                "SHOW_PROGRESS"
+            ]
+        },
+        "LOCK": {
+            "parameter": [
+                "GUARD",
+                "RESULT_VARIABLE",
+                "TIMEOUT"
+            ],
+            "flag": [
+                "DIRECTORY",
+                "RELEASE",
+                "FUNCTION",
+                "FILE",
+                "PROCESS"
+            ]
+        }
+    },
+    "message": {
+        "FATAL_ERROR": {},
+        "SEND_ERROR": {},
+        "AUTHOR_WARNING": {},
+        "WARNING": {},
+        "DEPRECATION": {},
+        "NOTICE": {},
+        "STATUS": {},
+        "VERBOSE": {},
+        "DEBUG": {},
+        "TRACE": {}
+    },
+    "string": {
+        "REPLACE": {},
+        "APPEND": {},
+        "PREPEND": {},
+        "CONCAT": {},
+        "JOIN": {},
+        "TOLOWER": {},
+        "TOUPPER": {},
+        "LENGTH": {},
+        "SUBSTRING": {},
+        "STRIP": {},
+        "GENEX_STRIP": {},
+        "REPEAT": {},
+        "MD5": {},
+        "SHA1": {},
+        "SHA224": {},
+        "SHA256": {},
+        "SHA384": {},
+        "SHA512": {},
+        "SHA3_224": {},
+        "SHA3_256": {},
+        "SHA3_384": {},
+        "SHA3_512": {},
+        "ASCII": {},
+        "MAKE_C_IDENTIFIER": {},
+        "FIND": {
+            "flag": [
+                "REVERSE"
+            ]
+        },
+        "REGEX": {
+            "parameter": [
+                "MATCH",
+                "MATCHALL",
+                "REPLACE"
+            ]
+        },
+        "COMPARE": {
+            "parameter": [
+                "LESS",
+                "GREATER",
+                "NOTEQUAL",
+                "EQUAL",
+                "LESS_EQUAL",
+                "GREATER_EQUAL"
+            ]
+        },
+        "CONFIGURE": {
+            "flag": [
+                "@ONLY",
+                "ESCAPE_QUOTES"
+            ]
+        },
+        "RANDOM": {
+            "parameter": [
+                "LENGTH",
+                "ALPHABET",
+                "RANDOM_SEED"
+            ]
+        },
+        "TIMESTAMP": {
+            "flag": [
+                "UTC"
+            ]
+        },
+        "UUID": {
+            "parameter": [
+                "NAMESPACE",
+                "NAME",
+                "TYPE"
+            ],
+            "flag": [
+                "MD5",
+                "SHA1",
+                "UPPER"
+            ]
+        }
+    },
+    "list": {
+        "LENGTH": {},
+        "GET": {},
+        "JOIN": {},
+        "SUBLIST": {},
+        "FIND": {},
+        "APPEND": {},
+        "INSERT": {},
+        "POP_BACK": {},
+        "POP_FRONT": {},
+        "PREPEND": {},
+        "REMOVE_ITEM": {},
+        "REMOVE_AT": {},
+        "REMOVE_DUPLICATES": {},
+        "REVERSE": {},
+        "TRANSFORM": {
+            "parameter": [
+                "OUTPUT_VARIABLE",
+                "APPEND",
+                "PREPEND",
+                "REPLACE",
+                "AT",
+                "FOR",
+                "REGEX"
+            ],
+            "flag": [
+                "TOLOWER",
+                "TOUPPER",
+                "STRIP",
+                "GENEX_STRIP"
+            ]
+        },
+        "FILTER": {
+            "flag": [
+                "INCLUDE",
+                "EXCLUDE"
+            ],
+            "parameter": [
+                "REGEX"
+            ]
+        },
+        "SORT": {
+            "parameter": [
+                "COMPARE",
+                "CASE",
+                "ORDER"
+            ],
+            "flag": [
+                "STRING",
+                "FILE_BASENAME",
+                "SENSITIVE",
+                "INSENSITIVE",
+                "ASCENDING",
+                "DESCENDING"
+            ]
+        }
+    }
+}

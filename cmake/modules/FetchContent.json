@@ -1,0 +1,40 @@
+{
+    "@type": "module",
+    "name": "FetchContent",
+    "variable": {
+        "keyword": [
+            "FETCHCONTENT_UPDATES_DISCONNECTED",
+            "FETCHCONTENT_FULLY_DISCONNECTED",
+            "FETCHCONTENT_BASE_DIR",
+            "FETCHCONTENT_QUIET"
+        ],
+        "pattern": [
+            "FETCHCONTENT_SOURCE_DIR_\\L+",
+            "FETCHCONTENT_UPDATES_DISCONNECTED_\\L+",
+            "\\U+_SOURCE_DIR",
+            "\\U+_BINARY_DIR",
+            "\\U+_POPULATED"
+        ]
+    },
+    "function": {
+        "FetchContent_MakeAvailable": {},
+        "FetchContent_Declare": {},
+        "FetchContent_GetProperties": {
+            "parameter": [
+                "SOURCE_DIR",
+                "BINARY_DIR",
+                "POPULATED"
+            ]
+        },
+        "FetchContent_Populate": {
+            "parameter": [
+                "SUBBUILD_DIR",
+                "SOURCE_DIR",
+                "BINARY_DIR"
+            ],
+            "flag": [
+                "QUIET"
+            ]
+        }
+    }
+}

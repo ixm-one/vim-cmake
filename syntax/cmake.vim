@@ -167,12 +167,6 @@ syntax keyword cmakeGeneratorOperator contained TARGET_NAME
 syntax keyword cmakeGeneratorOperator contained SHELL_PATH
 syntax keyword cmakeGeneratorOperator contained LINK_ONLY
 
-
-call CMakeRegenerateSyntax()
-
-execute 'source' g:cmake#syntax#cache
-
-
 syntax cluster cmakeGeneratorExpression add=cmakeGeneratorOperator
 syntax cluster cmakeGeneratorExpression add=cmakeGenerator
 syntax cluster cmakeGeneratorExpression add=cmakeReference
@@ -223,5 +217,14 @@ highlight default link cmakeTarget Type
 
 highlight default link cmakeComment Comment
 highlight default link cmakeTodo TODO
+
+call CMakeGenerateSyntax()
+
+"execute 'source' g:cmake#syntax#cache
+
+" These must, unfortunately, go at the VERY end.
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$CACHE{' end='}'
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$ENV{' end='}'
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='${' end='}'
 
 let b:current_syntax = "cmake"

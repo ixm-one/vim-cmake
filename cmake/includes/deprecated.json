@@ -1,6 +1,7 @@
 {
     "@type": "include",
     "@highlight": "WarningMsg",
+    "@name": "deprecated",
     "keyword": [
         "TestForANSIForScope",
         "TestForANSIStreamHeaders",

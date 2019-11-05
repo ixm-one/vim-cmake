@@ -1,6 +1,7 @@
 {
+    "@type": "command",
     "try_compile": {
-        "keyword": [
+        "parameter": [
             "SOURCES",
             "CMAKE_FLAGS",
             "COMPILE_DEFINITIONS",
@@ -17,7 +18,7 @@
         ]
     },
     "try_run": {
-        "keyword": [
+        "parameter": [
             "CMAKE_FLAGS",
             "COMPILE_DEFINITIONS",
             "LINK_OPTIONS",
@@ -29,7 +30,7 @@
         ]
     },
     "project": {
-        "keyword": [
+        "parameter": [
             "VERSION",
             "DESCRIPTION",
             "HOMEPAGE_URL",
@@ -37,7 +38,7 @@
         ]
     },
     "load_cache": {
-        "keyword": [
+        "parameter": [
             "EXCLUDE",
             "INCLUDE_INTERNALS"
         ],
@@ -46,7 +47,7 @@
         ]
     },
     "source_group": {
-        "keyword": [
+        "parameter": [
             "TREE",
             "FILES",
             "REGULAR_EXPRESSION",

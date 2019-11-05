@@ -1,6 +1,7 @@
 {
     "@type": "property",
     "@highlight": "WarningMsg",
+    "@name": "Deprecated",
     "keyword": [
         "ADDITIONAL_MAKE_CLEAN_FILES",
         "TEST_INCLUDE_FILE",

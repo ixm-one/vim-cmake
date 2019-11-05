@@ -1,8 +1,10 @@
 {
     "@highlight": "Error",
+    "@type": "command",
+    "@name": "Error",
     "build_name": {},
     "exec_program": {
-        "keyword": [
+        "parameter": [
             "ARGS",
             "OUTPUT_VARIABLE",
             "RETURN_VALUE"
@@ -14,22 +16,22 @@
         ]
     },
     "install_files": {
-        "keyword": [
+        "parameter": [
             "FILES"
         ]
     },
     "install_programs": {
-        "keyword": [
+        "parameter": [
             "FILES"
         ]
     },
     "install_targets": {
-        "keyword": [
+        "parameter": [
             "RUNTIME_DIRECTORY"
         ]
     },
     "load_command": {
-        "keyword": [
+        "parameter": [
             "COMMAND_NAME"
         ]
     },
@@ -43,7 +45,7 @@
         "flag": [
             "PREORDER"
         ],
-        "keyword": [
+        "parameter": [
             "EXCLUDE_FROM_ALL"
         ]
     },

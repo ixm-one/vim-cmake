@@ -1,0 +1,53 @@
+{
+    "@type": "command",
+    "install": {
+        "flag": [
+            "EXCLUDE_FROM_ALL",
+            "OPTIONAL"
+        ],
+        "parameter": [
+            "DESTINATION",
+            "COMPONENT",
+            "CONFIGURATIONS",
+            "PERMISSIONS"
+        ],
+        "SCRIPT": {},
+        "CODE": {},
+        "EXPORT_ANDROID_MK": {},
+        "TARGETS": {
+            "parameter": [
+                "EXPORT",
+                "ARCHIVE",
+                "LIBRARY",
+                "RUNTIME",
+                "OBJECTS",
+                "FRAMEWORK",
+                "BUNDLE",
+                "PRIVATE_HEADER",
+                "PUBLIC_HEADER",
+                "RESOURCE",
+                "NAMELINK_COMPONENT",
+                "INCLUDES"
+            ],
+            "flag": [
+                "NAMELINK_ONLY",
+                "NAMELINK_SKIP"
+            ]
+        },
+        "FILES": {
+            "parameter": [
+                "TYPE",
+                "RENAME"
+            ]
+        },
+        "EXPORT": {
+            "parameter": [
+                "NAMESPACE",
+                "FILE"
+            ],
+            "flag": [
+                "EXPORT_LINK_INTERFACE_LIBRARIES"
+            ]
+        }
+    }
+}
