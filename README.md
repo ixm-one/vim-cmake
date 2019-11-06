@@ -23,17 +23,19 @@ The following features are currently planned for a 1.0 release.
 
 ### Vim Options
 
- * [ ] ['completefunc'][] 
- * [ ] ['omnifunc'][] 
- * [ ] ['includeexpr'][] 
- * [ ] ['formatexpr'][] 
- * [ ] ['indentexpr'][] 
- * [x] ['commentstring'][] 
+ * [ ] ['completefunc'][]
+ * [ ] ['omnifunc'][]
+ * [ ] ['includeexpr'][]
+ * [ ] ['formatexpr'][]
+ * [ ] ['indentexpr'][]
+ * [ ] ['indentkeys'][]
+ * [x] ['commentstring'][]
+ * [ ] ['statusline'][]
  * [ ] ['dictionary'][]
- * [ ] ['statusline'][] 
- * [x] ['comments'][] 
- * [ ] ['include'][] 
- * [ ] ['define'][]
+ * [ ] ['thesaurus'][]
+ * [x] ['comments'][]
+ * [x] ['include'][]
+ * [x] ['define'][]
 
  * [ ] [text-prop][]
  * [ ] [tags][] 
@@ -60,7 +62,7 @@ or read the [documentation file][2] directly.
 [vscode-cmake-tools]: https://github.com/microsoft/vscode-cmake-tools
 
 [text-prop]: https://vimhelp.org/textprop.txt.html 
-[tags][]: https://vimhelp.org/tagsrch.txt.html 
+[tags]: https://vimhelp.org/tagsrch.txt.html 
 
 ['completefunc']: https://vimhelp.org/options.txt.html#'completefunc' 
 ['omnifunc']: https://vimhelp.org/options.txt.html#'omnifunc'
@@ -70,8 +72,9 @@ or read the [documentation file][2] directly.
 ['indentexpr']: https://vimhelp.org/options.txt.html#'indentexpr'
 
 ['commentstring']: https://vimhelp.org/options.txt.html#'commentstring' 
-['dictionary']: https://vimhelp.org/options.txt.html#'dictionary'
 ['statusline']: https://vimhelp.org/options.txt.html#'statusline' 
+['dictionary']: https://vimhelp.org/options.txt.html#'dictionary'
+['thesaurus']: https://vimhelp.org/options.txt.html#'thesaurus'
 ['comments']: https://vimhelp.org/options.txt.html#'comments'
 ['include']: https://vimhelp.org/options.txt.html#'include' 
 ['define']: https://vimhelp.org/options.txt.html#'define'
