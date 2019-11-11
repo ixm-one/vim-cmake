@@ -71,7 +71,7 @@ used if available, followed by GNU Make. If the current platform is Windows,
 NMake is also tried if GNU Make is not found. NOTE: It is highly recommended
 that Ninja is used, especially if speed is desired.
 
-                                                          *g:cmake_tool_loglevel*
+                                   *g:cmake_tool_log_level* *g:cmake_tool_loglevel*
 
 Sets the verbosity of message output from CMake via the --log-level command
 line option. When not set, the --log-level parameter is not passed to CMake.

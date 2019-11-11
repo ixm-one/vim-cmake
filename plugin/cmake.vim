@@ -1,6 +1,15 @@
 "if exists('cmake_plugin_loaded') | finish | endif
 let g:cmake_plugin_loaded = 1
 
+function! s:execute(object)
+  for key in ['keyword', 'match', 'region', 'cluster', 'highlight']
+    for cmd in get(a:object, key, [])
+      execute join(cmd, ' ')
+    endfor
+  endfor
+endfunction
+
+
 function! CMakeGenerateSyntax()
   let paths = cmake#json#find()
   " TODO: Place hash check here? Or possible before the call to #find
@@ -8,11 +17,15 @@ function! CMakeGenerateSyntax()
     let object = cmake#json#load(path)
     if !has_key(object, '@type') | continue | endif
     if object['@type'] == 'property'
-      "echo cmake#syntax#property(object)
+      call s:execute(cmake#syntax#property(object))
     elseif object['@type'] == 'variable'
-      "echo cmake#syntax#variable(object)
+      call s:execute(cmake#syntax#variable(object))
     elseif object['@type'] == 'module'
-      echo cmake#syntax#module(object)
+      call s:execute(cmake#syntax#module(object))
+    elseif object['@type'] == 'command'
+      call s:execute(cmake#syntax#command(object))
+    elseif object['@type'] == 'include'
+      call s:execute(cmake#syntax#include(object))
     endif
   endfor
 endfunction

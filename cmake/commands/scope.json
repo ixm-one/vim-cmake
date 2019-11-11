@@ -1,0 +1,13 @@
+{
+    "@type": "command",
+    "set": {},
+    "cmake_policy": {},
+    "cmake_minimum_required": {
+        "subcommands": [
+            "VERSION"
+        ],
+        "flag": [
+            "FATAL_ERROR"
+        ]
+    }
+}

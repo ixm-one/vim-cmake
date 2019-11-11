@@ -1,5 +1,5 @@
 {
-    "@highlight": "Preprocessor",
+    "@highlight": "PreProc",
     "@name": "Preprocessor",
     "@type": "command",
     "add_subdirectory": {

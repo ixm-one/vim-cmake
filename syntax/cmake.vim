@@ -4,10 +4,15 @@
 " Author: Isabella Muerte
 " License: MIT License
 
+" There's currently no easy way for us to override all the garbage in the
+" default plugin. So we have to do this manually :/
+if !exists('b:override_syntax') | syntax clear | endif
+let b:override_syntax = 1
 if exists('b:current_syntax') | finish | endif
+const s:cpo = &cpo
+set cpo&vim
 
 syntax iskeyword @,45-57,@-@,+,_
-
 
 " Control flow commands
 syntax keyword cmakeCommand function endfunction macro endmacro
@@ -23,7 +28,7 @@ syntax region cmakeFold start=/\v%(<function)@<=\s*\(/ms=e end=/\v%(<endfunction
 syntax region cmakeFold start=/\v%(<macro)@<=\s*\(/ms=e end=/\v%(<endmacro)@<=\s*\(/me=e transparent fold
 
 syntax region cmakeFold start=/\v%(<foreach)@<=\s*\(/ms=e end=/\v%(<endforeach)@<=\s*\(/me=e transparent fold
-syntax region cmakeFold start=/\v%(<while)@<=\s*(/ms=e end=/\v%(endwhile)@<=\s*\(/me=e transparent fold
+syntax region cmakeFold start=/\v%(<while)@<=\s*\(/ms=e end=/\v%(endwhile)@<=\s*\(/me=e transparent fold
 syntax region cmakeFold start=/\v%(<if)@<=\s*\(/ms=e end=/\v%(<endif)@<=\s*\(/me=e transparent fold
 
 syntax region cmakeConditionalArguments start=/\v%(<if|<elseif|<while)@<=\s*\(/ms=e end=/\v\)/
@@ -192,6 +197,7 @@ syntax cluster cmakeExpression add=cmakeString
 syntax cluster cmakeExpression add=cmakeFloat
 syntax cluster cmakeExpression add=cmakeTarget
 syntax cluster cmakeExpression add=cmakeProperty
+syntax cluster cmakeExpression add=cmakeVariable
 
 call CMakeGenerateSyntax()
 
@@ -207,7 +213,10 @@ syntax sync match cmakeCommentSync groupthere NONE /\v\]\]/
 syntax sync match cmakeStringSync grouphere cmakeString /\v\[\={,9}\[/
 syntax sync match cmakeStringSync groupthere NONE /\v\]\]/
 
-highlight default link cmakeCommand Keyword
+" Override default links
+highlight! default link cmakeProperty StorageClass
+highlight! default link cmakeCommand Keyword
+
 highlight default link cmakeFunction Function
 highlight default link cmakeMacro Macro
 
@@ -240,4 +249,6 @@ highlight default link cmakeTodo TODO
 syntax sync minlines=200
 syntax sync maxlines=500
 
-let b:current_syntax = "cmake"
+let b:override_syntax = "cmake"
+let &cpo = s:cpo
+unlet s:cpo

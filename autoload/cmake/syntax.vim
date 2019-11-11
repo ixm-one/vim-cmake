@@ -38,7 +38,7 @@ function! s:keyword(group, keywords, options = [], kwargs = {})
   call extend(command, a:keywords)
   call extend(command, a:options)
   call extend(command, s:kwargs(a:kwargs))
-  return command
+  return [l:command]
 endfunction
 
 function! s:match(group, pattern, options = [], kwargs = {})
@@ -48,19 +48,19 @@ function! s:match(group, pattern, options = [], kwargs = {})
   call extend(command, a:options)
   call extend(command, s:kwargs(a:kwargs))
   call add(command, a:pattern)
-  return command
+  return [l:command]
 endfunction
 
 function! s:pattern(group, pattern, options = [], kwargs = {})
-  return s:match(a:group, '\v<' .. a:pattern .. '>', a:options, a:kwargs)
+  return s:match(a:group, '/\v<' .. a:pattern .. '>/', a:options, a:kwargs)
 endfunction
 
 function! s:prefix(group, prefix, options = [], kwargs = {})
-  return s:match(a:group, '\v<\w+_' .. a:prefix .. '>', a:options, a:kwargs)
+  return s:match(a:group, '/\v<\w+_' .. a:prefix .. '>/', a:options, a:kwargs)
 endfunction
 
 function! s:suffix(group, suffix, options = [], kwargs = {})
-  return s:match(a:group, '\v<' .. a:suffix .. '_\w+>', a:options, a:kwargs)
+  return s:match(a:group, '/\v<' .. a:suffix .. '_\w+>/', a:options, a:kwargs)
 endfunction
 
 function! s:region(group, start, end, options=[], kwargs = {})
@@ -74,7 +74,7 @@ function! s:region(group, start, end, options=[], kwargs = {})
   call add(command, start)
   call add(command, skip)
   call add(command, end)
-  return command
+  return [l:command]
 endfunction
 
 function! s:highlight(from, to)
@@ -111,13 +111,21 @@ function! cmake#syntax#property(object)
   return s:unit(a:object, 'StorageClass', 'Property')
 endfunction
 
+" Temporary until all other modules are marked
+function! cmake#syntax#include(object)
+  let result = #{ keyword: [], highlight: [] }
+  let [highlight, group] = s:metadata(a:object, 'Include', 'Include')
+  let result['keyword'] = s:keyword(group, get(a:object, 'keyword', []))
+  let result['highlight'] = s:highlight(group, highlight)
+  return result
+endfunction
 
-function! cmake#syntax#command(object)
+function! cmake#syntax#command(object, highlight = 'Keyword', group='Command')
   let result = #{ keyword: [], match: [], region: [], highlight: [] }
   if type(a:object) != v:t_dict | return [] | endif
-  let [highlight, group] = s:metadata(a:object, 'Keyword', 'Command')
+  let [highlight, group] = s:metadata(a:object, a:highlight, a:group)
   for cmd in keys(a:object)
-    let result['keyword'] += s:keyword(group, cmd, ['skipwhite'])
+    let result['keyword'] += s:keyword(group, [cmd], ['skipwhite'])
   endfor
   let result['highlight'] = s:highlight(group, highlight)
   return result
@@ -127,5 +135,6 @@ function! cmake#syntax#module(object)
   let result = #{ keyword: [], match: [], region: [], highlight: [] }
   if type(a:object) != v:t_dict | return result | endif
   let variable = cmake#syntax#variable(get(a:object, 'variable', {}))
-  return merge(result, variable)
+  let function = cmake#syntax#command(get(a:object, 'function', {}), 'Function', 'Function')
+  return s:merge(result, variable, function)
 endfunction
