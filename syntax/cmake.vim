@@ -9,11 +9,8 @@ if exists('b:current_syntax') | finish | endif
 syntax iskeyword @,45-57,@-@,+,_
 
 
-" non-data based keywords and matches
+" Control flow commands
 syntax keyword cmakeCommand function endfunction macro endmacro
-syntax region cmakeFold start=/\v%(<function)@<=\s*\(/ms=e end=/\v%(<endfunction)@<=\s*\(/me=e transparent fold
-syntax region cmakeFold start=/\v%(<macro)@<=\s*\(/ms=e end=/\v%(<endmacro)@<=\s*\(/me=e transparent fold
-
 syntax keyword cmakeConditional if elseif while nextgroup=cmakeConditionalArguments
 syntax keyword cmakeConditional endwhile endif else
 
@@ -21,6 +18,13 @@ syntax keyword cmakeRepeat foreach nextgroup=cmakeRepeatArguments
 syntax keyword cmakeRepeat endforeach
 
 syntax keyword cmakeStatement continue return break
+
+syntax region cmakeFold start=/\v%(<function)@<=\s*\(/ms=e end=/\v%(<endfunction)@<=\s*\(/me=e transparent fold
+syntax region cmakeFold start=/\v%(<macro)@<=\s*\(/ms=e end=/\v%(<endmacro)@<=\s*\(/me=e transparent fold
+
+syntax region cmakeFold start=/\v%(<foreach)@<=\s*\(/ms=e end=/\v%(<endforeach)@<=\s*\(/me=e transparent fold
+syntax region cmakeFold start=/\v%(<while)@<=\s*(/ms=e end=/\v%(endwhile)@<=\s*\(/me=e transparent fold
+syntax region cmakeFold start=/\v%(<if)@<=\s*\(/ms=e end=/\v%(<endif)@<=\s*\(/me=e transparent fold
 
 syntax region cmakeConditionalArguments start=/\v%(<if|<elseif|<while)@<=\s*\(/ms=e end=/\v\)/
       \ contains=cmakeConditionalOperator,@cmakeExpression
@@ -42,8 +46,8 @@ syntax match cmakeEscape /\v\\t/ containedin=cmakeString
 syntax region cmakeString start=/\v\[\z(\={,9})\[/ end=/\v\]\z1\]/ contains=@cmakeDerefExpression
 syntax region cmakeString start=/"/ end=/\v%(\\)@<!"/ contains=@cmakeDerefExpression
 
-syntax region cmakeComment start='#' end='$' oneline contains=cmakeTodo
-syntax region cmakeComment start=/\v#\[\z(\={,9})\[/ end=/\v\]\z1\]/ contains=cmakeTodo
+syntax region cmakeComment start='#' end='$' oneline contains=cmakeTodo,@Spell
+syntax region cmakeComment start=/\v#\[\z(\={,9})\[/ end=/\v\]\z1\]/ contains=cmakeTodo,@Spell
 
 syntax region cmakeGenerator start="$<" end=">" contains=@cmakeGeneratorExpression
 
@@ -88,6 +92,7 @@ syntax keyword cmakeConditionalOperator contained NOT AND OR
 
 syntax keyword cmakeRepeatOperator contained RANGE LISTS ITEMS IN
 
+" TODO: Move these to a separate file. 
 syntax keyword cmakeGeneratorOperator contained Fortran_COMPILER_VERSION
 syntax keyword cmakeGeneratorOperator contained OBJCXX_COMPILER_VERSION
 syntax keyword cmakeGeneratorOperator contained OBJC_COMPILER_VERSION
@@ -188,6 +193,20 @@ syntax cluster cmakeExpression add=cmakeFloat
 syntax cluster cmakeExpression add=cmakeTarget
 syntax cluster cmakeExpression add=cmakeProperty
 
+call CMakeGenerateSyntax()
+
+" These *must* go after every syntax keyword/match/region command
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$CACHE{' end='}'
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$ENV{' end='}'
+syntax region cmakeReference oneline display contained contains=@cmakeArgument start='${' end='}'
+
+" TODO: Place all generated syntax sync match groups here
+syntax sync match cmakeCommentSync grouphere cmakeComment /\v#\[\={,9}\[/
+syntax sync match cmakeCommentSync groupthere NONE /\v\]\]/
+
+syntax sync match cmakeStringSync grouphere cmakeString /\v\[\={,9}\[/
+syntax sync match cmakeStringSync groupthere NONE /\v\]\]/
+
 highlight default link cmakeCommand Keyword
 highlight default link cmakeFunction Function
 highlight default link cmakeMacro Macro
@@ -218,13 +237,7 @@ highlight default link cmakeTarget Type
 highlight default link cmakeComment Comment
 highlight default link cmakeTodo TODO
 
-call CMakeGenerateSyntax()
-
-"execute 'source' g:cmake#syntax#cache
-
-" These must, unfortunately, go at the VERY end.
-syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$CACHE{' end='}'
-syntax region cmakeReference oneline display contained contains=@cmakeArgument start='$ENV{' end='}'
-syntax region cmakeReference oneline display contained contains=@cmakeArgument start='${' end='}'
+syntax sync minlines=200
+syntax sync maxlines=500
 
 let b:current_syntax = "cmake"

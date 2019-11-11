@@ -51,6 +51,29 @@ setting |g:cmake_api_silent_warnings|.
 ===============================================================================
 VSCODE INTEROPERABILITY                                  *cmake-internals-vscode*
 
+Note: The text here is temporary and will be filled out later.
+
+Loading .vscode/settings.json if possible
+Load .vscode/cmake-variants.json if possible
+
+Keys to support in settings:
+  * sourceDirectory -> path
+  * buildDirectory -> path
+  * installPrefix -> path
+  * cmakePath -> path
+  * buildBeforeRun -> bool
+  * configureSettings -> dict
+  * environment -> dict
+  * configureEnvironment -> dict
+  * buildEnvironment -> dict
+  * buildArgs -> array
+  * buildToolArgs -> array
+  * preferredGenerators ->
+  * generator
+  * defaultVariants
+  * copyCompileCommands
+  * loggingLevel
+
 ===============================================================================
 AUTOLOAD APIS                                              *cmake-internals-apis*
 

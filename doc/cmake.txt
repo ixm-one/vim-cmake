@@ -1,8 +1,5 @@
 *cmake.txt*        A plugin for CMake light years ahead of the rest
 
-Author: Isabella Muerte <@slurpsmadrips>
-License: MIT License
-
                              Syntax Highlighting
                             Project Configuration
                                   And More!
@@ -20,7 +17,14 @@ CONTENTS                                                         *cmake-contents
 ===============================================================================
 COMMANDS                                                         *cmake-commands*
 
-                            *cmake-:CMakeGenerateSyntax* *:CMakeGenerateSyntax*
+                                          *cmake-:CMakeConfigure* *:CMakeConfigure*
+                                                  *cmake-:CMakeBuild* *:CMakeBuild*
+                                                  *cmake-:CMakeClean* *:CMakeClean*
+                                                    *cmake-:CMakeTest* *:CMakeTest*
+                                                      *cmake-:CMakeRun* *:CMakeRun*
+                                                            *cmake-:CMake* *:CMake*
+
+                                *cmake-:CMakeGenerateSyntax* *:CMakeGenerateSyntax*
 
 :CMakeGenerateSyntax        Generates the syntax files included by this
                             plugin. This command is automatically called when
@@ -54,50 +58,65 @@ COMMANDS                                                         *cmake-commands
 SETTINGS                                                         *cmake-settings*
 
 
-                                                            *g:cmake_syntax_path*
+                                                              *g:cmake_tool_path*
 
-A list of paths, absolute or relative, that will be searched in addition to
-'runtimepath' and 'packpath' when generating syntax files for the API. This
-value is empty by default.
-
-                                                         *g:cmake_syntax_disable*
-
-When |TRUE|, `:CMakeGenerateSyntax` is only called when the cache directory is
-missing, or when manually invoked. This option is ignored if
-|g:cmake_syntax_manual| is |TRUE|
-
-                                                          *g:cmake_syntax_manual*
-
-When |TRUE|, all automatic syntax generation and events are disabled entirely.
-`:CMakeGenerateSyntax` never runs unless manually executed.
-
-                                                        *g:cmake_syntax_loglevel*
-
-One of "warn", "error", "quiet", or "debug". Affects output of
-|:CMakeGenerateSyntax|. When set to "warn", JSON errors are echoed as messages
-with with |:echohl| set to |hl-WarningMsg|. When set to "error", |:echoerr| is
-used instead. When set to "quiet", all logging output is silenced. When set to
-"debug", additional debug information is output as messages. Any other values
-are treated as "warn".
-
-                                                        *g:cmake_build_directory*
-
-This must be a relative path name. It is the name of the output directory where
-projects will by built. By default, this value is set to "build", and rarely
-will it be changed. 
-
-Note: This MAY NOT be the same as the source directory for a given project.
-The configure step will error out before every invoking CMake.
-
+Path to the CMake executable that will be run. This is provided for cases CMake
+is installed in a non-typical location, or if it is not on the system $PATH.
 
                                                          *g:cmake_tool_generator*
 
-The preferred generator to use when building a CMake project. If not set and
-"ninja" is the default, followed by make, and then NMake on Windows.
+The preferred build system generator to use when building a CMake project.
+When set, it will be used over $CMAKE_GENERATOR. If neither are set, "Ninja" is
+used if available, followed by GNU Make. If the current platform is Windows,
+NMake is also tried if GNU Make is not found. NOTE: It is highly recommended
+that Ninja is used, especially if speed is desired.
 
-                                                          *g:cmake_tool_yamlexpr*
+                                                          *g:cmake_tool_loglevel*
+
+Sets the verbosity of message output from CMake via the --log-level command
+line option. When not set, the --log-level parameter is not passed to CMake.
+Valid values are "error", "warn", "notice", "status", "verbose", "debug", and
+"trace". NOTE: Older versions of CMake might not support the --log-level
+parameter. Additionally, older versions treat the parameter as --loglevel. This
+plugin handles both cases.
+
+                                                          *g:cmake_tool_settings*
+
+This must be a dictionary of "default" options. Options set here have the
+lowest level of precedence compared to other sources and will never overwrite
+previously set fields. See |cmake-generate| for the various fields that can be
+set.
+
+                                                              *g:cmake_tool_kits*
+
+This must be a dictionary of valid build kits. See |cmake-internals-vscode| for
+more information.
+
+                                                          *g:cmake_tool_yamlfunc*
 
 This can be either a |Funcref|, or a |String| representing a |Function| name.
 When called, it will be passed a |String| which must be parsed as YAML and then
 returned as JSON. If successful, this plugin can read the "cmake-variants.yaml"
 file that https://github.com/microsoft/vscode-cmake-tools currently supports.
+If this is not set, "cmake-variants.yaml" files cannot be read.
+
+-------------------------------------------------------------------------------
+BUFFER SPECIFIC SETTINGS                                  *cmake-settings-buffer*
+
+The following settings are buffer specific. However, when opening a buffer
+under `b:cmake_source_dir`, the plugin will automatically set these values if
+possible.
+
+                                                             *b:cmake_source_dir*
+
+Absolute path to the source directory for the current buffer. i.e., the
+directory where the top-level CMakeLists.txt file was passed. This variable is
+set after calling |:CMakeConfigure|, or |:CMakeLocateProject|.
+
+                                                              *b:cmake_build_dir*
+
+Path to the CMake build directory. i.e., the directory where CMakeCache.txt is
+stored. This variable is set after calling |:CMakeConfigure|, or
+|:CMakeLocateProject|.
+
+                                                                *b:cmake_variant*

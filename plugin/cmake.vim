@@ -17,53 +17,14 @@ function! CMakeGenerateSyntax()
   endfor
 endfunction
 
-" TODO: load vscode/settings.json if set
-" TODO: load cmake-variants.json if it exists
-" keys
-" sourceDirectory -> path
-" buildDirectory -> path
-" installPrefix -> path
-" cmakePath -> path
-" buildBeforeRun -> bool
-" configureSettings -> dict (with limited substitution)
-" environment -> dict
-" configureEnvironment -> dict
-" buildEnvironment -> dict
-" buildArgs -> array
-" buildToolArgs -> array
-" preferredGenerators
-" generator
-" defaultVariants
-" copyCompileCommands
-" loggingLevel
-
 function! s:cmake_find_build()
 endfunction
 
-"command! -nargs=? CMake call s:cmake(<f-args>)
-
-function! s:cmake(...)
-  if !s:find_build_dir() | return | endif
-  let &makeprg = 'cmake --build ' . shellescape(b:build_dir) . ' --target'
-endfunction
-
-"function! CMakeRegenerateSyntax()
-"  call cmake#syntax#Subcommands()
-"  call cmake#syntax#Properties()
-"  call cmake#syntax#Variables()
-"  call cmake#syntax#Modules()
-"
-"  call cmake#syntax#References()
-"
-"  "if !filereadable(g:cmake#syntax#cache)
-"  try
-"    call extend(g:cmake#syntax#text, g:cmake#syntax#syntax_text)
-"    call extend(g:cmake#syntax#text, g:cmake#syntax#highlight_text)
-"    call writefile(g:cmake#syntax#text, g:cmake#syntax#cache)
-"  finally
-"    let g:cmake#syntax#text = []
-"    let g:cmake#syntax#syntax_text = []
-"    let g:cmake#syntax#highlight_text = []
-"  endtry
-"  "endif
-"endfunction
+" TODO: Change the autoload functions to be cmake#cli
+command! -nargs=* CMakeConfigure call cmake#configure(<f-args>)
+command! -nargs=* CMakePackage call cmake#package(<f-args>)
+command! -nargs=* CMakeBuild call cmake#build(<f-args>)
+command! -nargs=* CMakeClean call cmake#clean(<f-args>)
+command! -nargs=* CMakeTest call cmake#test(<f-args>)
+command! -nargs=* CMakeRun call cmake#run(<f-args>)
+command! -nargs=+ CMake call cmake#cmd(<q-args>)
