@@ -9,7 +9,6 @@ function! s:execute(object)
   endfor
 endfunction
 
-
 function! CMakeGenerateSyntax()
   let paths = cmake#json#find()
   " TODO: Place hash check here? Or possible before the call to #find

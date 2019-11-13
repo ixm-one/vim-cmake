@@ -22,14 +22,6 @@
             "GLOBAL"
         ]
     },
-    "cmake_minimum_required": {
-        "subcommands": [
-            "VERSION"
-        ],
-        "flag": [
-            "FATAL_ERROR"
-        ]
-    },
     "configure_file": {
         "parameter": [
             "NEWLINE_STYLE"

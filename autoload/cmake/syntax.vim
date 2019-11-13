@@ -4,6 +4,10 @@ function! s:capitalize(name)
   return join(words, '')
 endfunction
 
+function! s:subcommands (object)
+  return filter(keys(a:object), {_, val -> count(['parameter', 'flag', 'special'], val) })
+endfunction
+
 " merges multiple dictionaries into one
 function! s:merge(...)
   let result = #{ keyword: [], match: [], region: [], highlight: [] }
@@ -18,7 +22,7 @@ endfunction
 function! s:kwargs(dict)
   let result = []
   for [key, value] in items(a:dict)
-    if type(value) = v:t_list
+    if type(value) == v:t_list
       let value = join(value, ',')
     endif
     let result += [printf("%s=%s", key, value)]
@@ -77,6 +81,14 @@ function! s:region(group, start, end, options=[], kwargs = {})
   return [l:command]
 endfunction
 
+function! s:cluster(group, target)
+  let command = ['syntax', 'cluster']
+  let target = 'add=' .. a:target
+  call add(command, a:group)
+  call add(command, l:target)
+  return [l:command]
+endfunction
+
 function! s:highlight(from, to)
   return [['highlight', 'default', 'link', a:from, a:to]]
 endfunction
@@ -124,8 +136,13 @@ function! cmake#syntax#command(object, highlight = 'Keyword', group='Command')
   let result = #{ keyword: [], match: [], region: [], highlight: [] }
   if type(a:object) != v:t_dict | return [] | endif
   let [highlight, group] = s:metadata(a:object, a:highlight, a:group)
-  for cmd in keys(a:object)
-    let result['keyword'] += s:keyword(group, [cmd], ['skipwhite'])
+  let keys = filter(keys(a:object), {_, val -> val !~# '^@' })
+  for cmd in keys
+    let next = printf("@%sSubcommands", s:group(s:capitalize(cmd)))
+    let result['keyword'] += s:keyword(group, [cmd], ['skipwhite'], #{ nextgroup: next })
+    for parameter in get(a:object, 'parameter', [])
+"      let result['cluster'] += cmake#syntax#cluster(
+    endfor
   endfor
   let result['highlight'] = s:highlight(group, highlight)
   return result

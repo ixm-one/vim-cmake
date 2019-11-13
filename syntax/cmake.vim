@@ -8,7 +8,7 @@
 " default plugin. So we have to do this manually :/
 if !exists('b:override_syntax') | syntax clear | endif
 let b:override_syntax = 1
-if exists('b:current_syntax') | finish | endif
+"if exists('b:current_syntax') | finish | endif
 const s:cpo = &cpo
 set cpo&vim
 
@@ -97,7 +97,7 @@ syntax keyword cmakeConditionalOperator contained NOT AND OR
 
 syntax keyword cmakeRepeatOperator contained RANGE LISTS ITEMS IN
 
-" TODO: Move these to a separate file. 
+" TODO: Move these to a separate file.
 syntax keyword cmakeGeneratorOperator contained Fortran_COMPILER_VERSION
 syntax keyword cmakeGeneratorOperator contained OBJCXX_COMPILER_VERSION
 syntax keyword cmakeGeneratorOperator contained OBJC_COMPILER_VERSION
@@ -220,6 +220,15 @@ highlight! default link cmakeCommand Keyword
 highlight default link cmakeFunction Function
 highlight default link cmakeMacro Macro
 
+highlight default link cmakeDeprecatedProperty WarningMsg
+highlight default link cmakeDeprecatedCommand WarningMsg
+highlight default link cmakeDeprecatedModule WarningMsg
+
+highlight default link cmakeErrorCommand ErrorMsg
+highlight default link cmakeErrorModule ErrorMsg
+
+highlight default link cmakeModule Include
+
 highlight default link cmakeSubcommand Special
 highlight default link cmakeKeyword Label
 highlight default link cmakeFlag Constant
@@ -250,5 +259,6 @@ syntax sync minlines=200
 syntax sync maxlines=500
 
 let b:override_syntax = "cmake"
+let b:current_syntax = "cmake"
 let &cpo = s:cpo
 unlet s:cpo
