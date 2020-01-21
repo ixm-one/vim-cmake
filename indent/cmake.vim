@@ -1,4 +1,4 @@
-if exists('b:did_indent') | finish | endif
+"if exists('b:did_indent') | finish | endif
 let b:did_indent = 1
 
 " reset to 'sane' defaults, then add ours
@@ -12,11 +12,11 @@ if exists("*GetCMakeIndent") | finish | endif
 const s:cpo = &cpo
 set cpo&vim
 
-const s:call = "\v^\s*\h\w+\s*\("
-const s:exec = "\v^\s*\)"
+const s:call = '\v^\s*\h\w+\s*\('
+const s:exec = '\v^\s*\)'
 
-const s:begin = "\v^\s*(if|elseif|else|foreach|while|function|macro)\s*\("
-const s:end = "\v^\s*(endif|endwhile|endforeach|endfunction|endmacro)\s*\("
+const s:begin = '\v^\s*(if|elseif|else|foreach|while|function|macro)\s*\('
+const s:end = '\v^\s*(endif|endwhile|endforeach|endfunction|endmacro)\s*\('
 
 " Find a line above 'lnum' that isn't blank, in a comment, or string
 function! s:previous(n)
@@ -43,15 +43,15 @@ function GetCMakeIndent(n)
 
   if s:skippable(a:n, 1) | return -1 | endif
 
-  let current = s:contents(a:n)
+  let current = s:content(a:n)
+  echomsg current =~# s:exec
   let prev = s:content(p)
-  let amt = amt(prev)
+  echomsg prev
+  let amt = indent(p)
+  echomsg amt
 
-  if prev =~# s:begin || prev =~# s:call
-    let amt += shiftwidth()
-  elseif prev =~# s:end || prev =~# s:exec
-    let amt -= shiftwidth()
-  endif
+  if prev =~# s:begin || prev =~# s:call | let amt += shiftwidth() | endif
+  if prev =~# s:end || current =~# s:exec | let amt -= shiftwidth() | endif
 
   return amt
 endfunction
