@@ -7,11 +7,15 @@ if exists('b:current_syntax') | finish | endif
 
 syntax iskeyword @,_,+,45-58,@-@
 
+" c0ws -> whitespace
+" c0rs -> record separator
+" c0us -> unit separator
+
 syntax match c0ws /\%x09/ display conceal cchar=␉ "C0 \t
 syntax match c0ws /\%x0b/ display conceal cchar=␋ "C0 \v
 syntax match c0ws /\%x0c/ display conceal cchar=␌ "C0 \f
-syntax match c0ws /\%x0d/ display conceal cchar=␍ "C0 \r
 syntax match c0ws /\%xc2\%x85/ display conceal cchar=␊ "C1 NEL
+syntax match c0ws /\%xc2\%x86/ display conceal cchar=␍ "C1 IDX
 
 syntax match c0rs "\%x1e" display conceal cchar=␞ "C0 RS
 syntax match c0us "\%x1f" display conceal cchar=␟ "C0 US
